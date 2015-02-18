@@ -40,7 +40,7 @@ CG_EXTERN CGError CGSGetWorkspace(CGSConnectionID cid, CGSWorkspaceID *outWorksp
 CG_EXTERN CGError CGSSetWorkspace(CGSConnectionID cid, CGSWorkspaceID workspace);
 
 /*! Transitions to a workspace asynchronously. Note that `duration` is in seconds. */
-CG_EXTERN CGError CGSSetWorkspaceWithTransition(CGSConnectionID cid, CGSWorkspaceID workspace, CGSTransitionType transition, CGSTransitionFlags options, float duration);
+CG_EXTERN CGError CGSSetWorkspaceWithTransition(CGSConnectionID cid, CGSWorkspaceID workspace, CGSTransitionType transition, CGSTransitionFlags options, CGFloat duration);
 
 /*! Gets and sets the workspace for a window. */
 CG_EXTERN CGError CGSGetWindowWorkspace(CGSConnectionID cid, CGSWindowID wid, CGSWorkspaceID *outWorkspace);

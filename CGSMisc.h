@@ -39,7 +39,7 @@ CG_EXTERN bool CGSEventIsAppUnresponsive(CGSConnectionID cid, const ProcessSeria
 CG_EXTERN CGError CGSEventSetAppIsUnresponsiveNotificationTimeout(CGSConnectionID cid, double theTime);
 
 /*! Sets the cursor position. */
-CG_EXTERN CGError CGSWarpCursorPosition(CGSConnectionID cid, float x, float y);
+CG_EXTERN CGError CGSWarpCursorPosition(CGSConnectionID cid, CGFloat x, CGFloat y);
 
 /*! DOCUMENTATION PENDING */
 CG_EXTERN CGError CGSHideBackstopMenuBar(CGSConnectionID cid);
@@ -49,7 +49,7 @@ CG_EXTERN CGError CGSShowBackstopMenuBar(CGSConnectionID cid);
 CG_EXTERN bool CGSIsPortableMachine(void);
 
 /*! Sets the area taken up by the dock. Requires the caller to be a universal owner. */
-CG_EXTERN CGError CGSSetDockRect(CGSConnectionID cid, float x, float y, float width, float height);
+CG_EXTERN CGError CGSSetDockRect(CGSConnectionID cid, CGFloat x, CGFloat y, CGFloat width, CGFloat height);
 
 /*! DOCUMENTATION PENDING - returns false. Perhaps related to the CGSTBE_QDACCEL env variable. */
 CG_EXTERN bool CGSIsClassicBuffered(void);

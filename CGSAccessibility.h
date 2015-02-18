@@ -31,8 +31,8 @@ CG_EXTERN bool CGSDisplayIsZoomed(void);
 CG_EXTERN CGError CGSIsZoomed(CGSConnectionID cid, bool *outIsZoomed);
 
 /*! Gets and sets the cursor scale. The largest the Universal Access prefpane allows you to go is 4.0. */
-CG_EXTERN CGError CGSGetCursorScale(CGSConnectionID cid, float *outScale);
-CG_EXTERN CGError CGSSetCursorScale(CGSConnectionID cid, float scale);
+CG_EXTERN CGError CGSGetCursorScale(CGSConnectionID cid, CGFloat *outScale);
+CG_EXTERN CGError CGSSetCursorScale(CGSConnectionID cid, CGFloat scale);
 
 /*! Gets and sets the state of screen inversion. */
 CG_EXTERN bool CGDisplayUsesInvertedPolarity(void);
@@ -43,6 +43,6 @@ CG_EXTERN bool CGDisplayUsesForceToGray(void);
 CG_EXTERN void CGDisplayForceToGray(bool forceToGray);
 
 /*! Sets the display's contrast. There doesn't seem to be a get version of this function. */
-CG_EXTERN CGError CGSSetDisplayContrast(float contrast);
+CG_EXTERN CGError CGSSetDisplayContrast(CGFloat contrast);
 
 CG_EXTERN_C_END

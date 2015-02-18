@@ -58,7 +58,7 @@ CG_EXTERN CGError CGSGetRegionBounds(CGSRegionObj region, CGRect *outRect);
 CG_EXTERN bool CGSRegionsEqual(CGSRegionObj region1, CGSRegionObj region2);
 
 /* Created a new region by changing the origin an existing one. */
-CG_EXTERN CGError CGSOffsetRegion(CGSRegionObj region, float offsetLeft, float offsetTop, CGSRegionObj *outRegion);
+CG_EXTERN CGError CGSOffsetRegion(CGSRegionObj region, CGFloat offsetLeft, CGFloat offsetTop, CGSRegionObj *outRegion);
 
 /*! Creates a new region by copying an existing one. */
 CG_EXTERN CGError CGSCopyRegion(CGSRegionObj region, CGSRegionObj *outRegion);

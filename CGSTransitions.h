@@ -59,7 +59,7 @@ typedef struct {
 	CGSTransitionType type;
 	CGSTransitionFlags options;
 	CGSWindowID wid; /* 0 means a full screen transition. */
-	float *backColor; /* NULL means black. */
+	CGFloat *backColor; /* NULL means black. */
 } CGSTransitionSpec;
 
 CG_EXTERN_C_BEGIN
@@ -68,7 +68,7 @@ CG_EXTERN_C_BEGIN
 CG_EXTERN CGError CGSNewTransition(CGSConnectionID cid, const CGSTransitionSpec *spec, CGSTransitionID *outTransition);
 
 /*! Invokes a transition asynchronously. Note that `duration` is in seconds. */
-CG_EXTERN CGError CGSInvokeTransition(CGSConnectionID cid, CGSTransitionID transition, float duration);
+CG_EXTERN CGError CGSInvokeTransition(CGSConnectionID cid, CGSTransitionID transition, CGFloat duration);
 
 /*! Releases a transition. */
 CG_EXTERN CGError CGSReleaseTransition(CGSConnectionID cid, CGSTransitionID transition);
