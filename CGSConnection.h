@@ -45,6 +45,20 @@ CG_EXTERN bool CGSMenuBarExists(CGSConnectionID cid);
 
 
 #pragma mark notifications
+
+typedef enum {
+	CGSScreenResolutionChangedEvent = 100,
+	CGSClientEnterFullscreen = 106,
+	CGSClientExitFullscreen = 107,
+	CGSWorkspaceConfigurationDisabledEvent = 761, 	
+	CGSWorkspaceConfigurationEnabledEvent = 762,  
+	CGSWorkspaceChangedEvent = 1401,
+} CGSConnectionNotifyEvent;
+
+
+CG_EXTERN CGError CGSRegisterConnectionNotifyProc(const CGSConnection cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
+CG_EXTERN CGError CGSRemoveConnectionNotifyProc(const CGSConnection cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
+
 /*! Registers or removes a function to get notified when a connection is created. Only gets notified for connections created in the current application. */
 typedef void (*CGSNewConnectionNotificationProc)(CGSConnectionID cid);
 CG_EXTERN CGError CGSRegisterForNewConnectionNotification(CGSNewConnectionNotificationProc proc);
