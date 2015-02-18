@@ -103,8 +103,13 @@ CG_EXTERN CGError CGSSetWindowSharingState(CGSConnectionID cid, CGSWindowID wid,
 /*! Sets whether this window is ignored in the global window cycle (Control-F4 by default). There is no Get version? */
 CG_EXTERN CGError CGSSetIgnoresCycle(CGSConnectionID cid, CGSWindowID wid, bool ignoresCycle);
 
-/*! Creates a graphics context for the window. */
-CG_EXTERN CGContextRef CGWindowContextCreate(CGSConnectionID cid, CGSWindowID wid, int unknown);
+/*! Creates a graphics context for the window. 
+ 
+ Acceptable keys options:
+ 
+ - CGWindowContextShouldUseCA : CFBooleanRef
+ */
+CG_EXTERN CGContextRef CGWindowContextCreate(CGSConnectionID cid, CGSWindowID wid, CFDictionaryRef options);
 
 /*! Sets the order of a window */
 CG_EXTERN CGError CGSOrderWindow(CGSConnectionID cid, CGSWindowID wid, CGSWindowOrderingMode mode, CGSWindowID relativeToWID);
@@ -192,5 +197,20 @@ CG_EXTERN CGError CGSUnregisterWindowWithSystemStatusBar(CGSConnectionID cid, CG
 
 /*! Rearranges items in the system status bar. You should call this after registering or unregistering a status item or changing the window's width. */
 CG_EXTERN CGError CGSAdjustSystemStatusBarWindows(CGSConnectionID cid);
+
+#pragma mark window properties
+
+/*!  
+ Sets the shadow properties of a CGSWindow.  All values in the dictionary must be NSNumbers of CGFloats.
+ 
+ Acceptable keys:
+ 
+ - com.apple.WindowShadowDensity
+ - com.apple.WindowShadowRadius
+ - com.apple.WindowShadowVerticalOffset
+ - com.apple.WindowShadowRimDensity
+ - com.apple.WindowShadowRimStyleHard
+ */
+CG_EXTERN CGError CGSWindowSetShadowProperties(CGSWindowID wid, CFDictionaryRef properties);
 
 CG_EXTERN_C_END
