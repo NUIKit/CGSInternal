@@ -43,7 +43,6 @@ CG_EXTERN CGError CGSReenableUpdate(CGSConnectionID cid);
 CG_EXTERN bool CGSMenuBarExists(CGSConnectionID cid);
 
 
-
 #pragma mark notifications
 
 typedef enum {
@@ -55,9 +54,10 @@ typedef enum {
 	CGSWorkspaceChangedEvent = 1401,
 } CGSConnectionNotifyEvent;
 
+typedef void (*CGConnectionNotifyProc)(int data1, int data2, int data3, void* userParameter);
 
-CG_EXTERN CGError CGSRegisterConnectionNotifyProc(const CGSConnection cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
-CG_EXTERN CGError CGSRemoveConnectionNotifyProc(const CGSConnection cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
+CG_EXTERN CGError CGSRegisterConnectionNotifyProc(CGSConnectionID cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
+CG_EXTERN CGError CGSRemoveConnectionNotifyProc(CGSConnectionID cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
 
 /*! Registers or removes a function to get notified when a connection is created. Only gets notified for connections created in the current application. */
 typedef void (*CGSNewConnectionNotificationProc)(CGSConnectionID cid);
