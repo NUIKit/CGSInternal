@@ -65,6 +65,10 @@ CG_EXTERN CGError CGSSetWindowTitle(CGSConnectionID cid, CGSWindowID wid, CFStri
 CG_EXTERN CGError CGSGetWindowProperty(CGSConnectionID cid, CGSWindowID wid, CFStringRef key, CFTypeRef *outValue);
 CG_EXTERN CGError CGSSetWindowProperty(CGSConnectionID cid, CGSWindowID wid, CFStringRef key, CFTypeRef value);
 
+/*! Gets and sets whether a window is opaque. */
+CG_EXTERN CGSGetWindowOpacity(CGSConnectionID cid, CGSWindowID wid, bool *isOpaque);
+CG_EXTERN CGSSetWindowOpacity(CGSConnectionID cid, CGSWindowID wid, bool isOpaque);
+
 /*! Gets and sets the window's transparency. */
 CG_EXTERN CGError CGSGetWindowAlpha(CGSConnectionID cid, CGSWindowID wid, float *outAlpha);
 CG_EXTERN CGError CGSSetWindowAlpha(CGSConnectionID cid, CGSWindowID wid, float alpha);
