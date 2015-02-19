@@ -223,4 +223,21 @@ CG_EXTERN CGError CGSAdjustSystemStatusBarWindows(CGSConnectionID cid);
 
 #pragma mark window tags
 
+typedef enum {
+	CGSTagNone			= 0,		// No tags
+	CGSTagExposeFade	= 0x0002,	// Fade out when Expose activates.
+	CGSTagNoShadow		= 0x0008,	// No window shadow.
+	CGSTagTransparent   = 0x0200,   // Transparent to mouse clicks.
+	CGSTagSticky		= 0x0800,	// Appears on all workspaces.
+} CGSWindowTag;
+
+/*! Get the given tags for a window.  `thirtyTwoOrSixtyFour` must be either 32 or 64 for some reason... */
+CG_EXTERN CGError CGSGetWindowTags(CGSConnectionID cid, CGSWindowID wid, CGSWindowTag *tags, int thirtyTwoOrSixtyFour);
+
+/*! Set the given tags for a window.  `thirtyTwoOrSixtyFour` must be either 32 or 64 for some reason... */
+CG_EXTERN CGError CGSSetWindowTags(CGSConnectionID cid, CGSWindowID wid, CGSWindowTag *tags, int thirtyTwoOrSixtyFour);
+
+/*! Clear the given tags for a window.  `thirtyTwoOrSixtyFour` must be either 32 or 64 for some reason... */
+CG_EXTERN CGError CGSClearWindowTags(CGSConnectionID cid, CGSWindowID wid, CGSWindowTag *tags, int thirtyTwoOrSixtyFour);
+
 CG_EXTERN_C_END
