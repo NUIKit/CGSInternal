@@ -129,6 +129,7 @@ CG_EXTERN CGError CGSFlushWindow(CGSConnectionID cid, CGSWindowID wid, CGSRegion
 
 
 #pragma mark shadows
+
 /*! Gets and sets the shadow information for a window. Values for `flags` are unknown. */
 CG_EXTERN CGError CGSSetWindowShadowAndRimParameters(CGSConnectionID cid, CGSWindowID wid, float standardDeviation, float density, int offsetX, int offsetY, int flags);
 CG_EXTERN CGError CGSGetWindowShadowAndRimParameters(CGSConnectionID cid, CGSWindowID wid, float *outStandardDeviation, float *outDensity, int *outOffsetX, int *outOffsetY, int *outFlags);
@@ -139,8 +140,22 @@ CG_EXTERN CGError CGSSetWindowShadowParameters(CGSConnectionID cid, CGSWindowID 
 /*! Invalidates a window's shadow. */
 CG_EXTERN CGError CGSInvalidateWindowShadow(CGSConnectionID cid, CGSWindowID wid);
 
+/*!  
+ Sets the shadow properties of a CGSWindow.  All values in the dictionary must be NSNumbers of CGFloats.
+ 
+ Acceptable keys:
+ 
+ - com.apple.WindowShadowDensity
+ - com.apple.WindowShadowRadius
+ - com.apple.WindowShadowVerticalOffset
+ - com.apple.WindowShadowRimDensity
+ - com.apple.WindowShadowRimStyleHard
+ */
+CG_EXTERN CGError CGSWindowSetShadowProperties(CGSWindowID wid, CFDictionaryRef properties);
+
 
 #pragma mark window lists
+
 /*! Gets the number of windows the `targetCID` owns. */
 CG_EXTERN CGError CGSGetWindowCount(CGSConnectionID cid, CGSConnectionID targetCID, int *outCount);
 
@@ -155,6 +170,7 @@ CG_EXTERN CGError CGSGetOnScreenWindowList(CGSConnectionID cid, CGSConnectionID 
 
 
 #pragma mark window management
+
 /*! Creates a new CGSWindow. The real window top/left is the sum of the region's top/left and the top/left parameters. */
 CG_EXTERN CGError CGSNewWindow(CGSConnectionID cid, CGSBackingType backingType, float left, float top, CGSRegionObj region, CGSWindowID *outWID);
 
@@ -166,6 +182,7 @@ CG_EXTERN CGError CGSReleaseWindow(CGSConnectionID cid, CGSWindowID wid);
 
 
 #pragma mark animations
+
 /*! Creates a Dock-style genie animation that goes from `wid` to `destinationWID`. */
 CG_EXTERN CGError CGSCreateGenieWindowAnimation(CGSConnectionID cid, CGSWindowID wid, CGSWindowID destinationWID, CGSAnimationObj *outAnimation);
 
@@ -186,6 +203,7 @@ CG_EXTERN CGError CGSReleaseWindowAnimation(CGSAnimationObj animation);
 
 
 #pragma mark window accelleration
+
 /*! Gets the state of accelleration for the window. */
 CG_EXTERN CGError CGSWindowIsAccelerated(CGSConnectionID cid, CGSWindowID wid, bool *outIsAccelerated);
 
@@ -195,6 +213,7 @@ CG_EXTERN CGError CGSWindowSetCanAccelerate(CGSConnectionID cid, CGSWindowID wid
 
 
 #pragma mark system status items
+
 /*! Registers or unregisters a window as a global status item (see `NSStatusItem`, `NSMenuExtra`). Once a window is registered, the window server takes care of placing it in the apropriate location. */
 CG_EXTERN CGError CGSRegisterWindowWithSystemStatusBar(CGSConnectionID cid, CGSWindowID wid, int priority);
 CG_EXTERN CGError CGSUnregisterWindowWithSystemStatusBar(CGSConnectionID cid, CGSWindowID wid);
@@ -202,19 +221,6 @@ CG_EXTERN CGError CGSUnregisterWindowWithSystemStatusBar(CGSConnectionID cid, CG
 /*! Rearranges items in the system status bar. You should call this after registering or unregistering a status item or changing the window's width. */
 CG_EXTERN CGError CGSAdjustSystemStatusBarWindows(CGSConnectionID cid);
 
-#pragma mark window properties
-
-/*!  
- Sets the shadow properties of a CGSWindow.  All values in the dictionary must be NSNumbers of CGFloats.
- 
- Acceptable keys:
- 
- - com.apple.WindowShadowDensity
- - com.apple.WindowShadowRadius
- - com.apple.WindowShadowVerticalOffset
- - com.apple.WindowShadowRimDensity
- - com.apple.WindowShadowRimStyleHard
- */
-CG_EXTERN CGError CGSWindowSetShadowProperties(CGSWindowID wid, CFDictionaryRef properties);
+#pragma mark window tags
 
 CG_EXTERN_C_END
