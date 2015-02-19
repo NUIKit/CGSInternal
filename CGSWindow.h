@@ -164,15 +164,15 @@ CG_EXTERN CGError CGSSetWindowShadowParameters(CGSConnectionID cid, CGSWindowID 
 CG_EXTERN CGError CGSInvalidateWindowShadow(CGSConnectionID cid, CGSWindowID wid);
 
 /*!  
- Sets the shadow properties of a CGSWindow.  All values in the dictionary must be NSNumbers of CGFloats.
+ Sets a window's shadow properties.
  
  Acceptable keys:
  
- - com.apple.WindowShadowDensity
- - com.apple.WindowShadowRadius
- - com.apple.WindowShadowVerticalOffset
- - com.apple.WindowShadowRimDensity
- - com.apple.WindowShadowRimStyleHard
+ - com.apple.WindowShadowDensity		- (0.0 - 1.0) Opacity of the window's shadow.
+ - com.apple.WindowShadowRadius			- The radius of the shadow around the window's corners.
+ - com.apple.WindowShadowVerticalOffset	- Vertical offset of the shadow.
+ - com.apple.WindowShadowRimDensity		- (0.0 - 1.0) Opacity of the black rim around the window.
+ - com.apple.WindowShadowRimStyleHard	- Sets a hard black rim around the window.
  */
 CG_EXTERN CGError CGSWindowSetShadowProperties(CGSWindowID wid, CFDictionaryRef properties);
 
