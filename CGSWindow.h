@@ -73,6 +73,26 @@ CG_EXTERN CGError CGSSetWindowOpacity(CGSConnectionID cid, CGSWindowID wid, bool
 CG_EXTERN CGError CGSGetWindowAlpha(CGSConnectionID cid, CGSWindowID wid, float *outAlpha);
 CG_EXTERN CGError CGSSetWindowAlpha(CGSConnectionID cid, CGSWindowID wid, float alpha);
 
+/*! Gets and sets the window's transform. 
+ 
+	Severe restrictions are placed on transformation:
+ - Transformation Matrices may only include a singular transform.
+ - Transformations involving scale may not scale upwards past the window's frame.
+ - Transformations involving rotation must be followed by translation or the window will fall offscreen.
+ */
+CG_EXTERN CGError CGSGetWindowTransform(CGSConnectionID ciw, CGSWindowID wid, const CGAffineTransform *outTransform);
+CG_EXTERN CGError CGSSetWindowTransform(CGSConnectionID ciw, CGSWindowID wid, CGAffineTransform transform);
+
+/*! Gets and sets the window's transform in place. 
+	
+	Severe restrictions are placed on transformation:
+ - Transformation Matrices may only include a singular transform.
+ - Transformations involving scale may not scale upwards past the window's frame.
+ - Transformations involving rotation must be followed by translation or the window will fall offscreen.
+ */
+CG_EXTERN CGError CGSGetWindowTransformAtPlacement(CGSConnectionID ciw, CGSWindowID wid, const CGAffineTransform *outTransform);
+CG_EXTERN CGError CGSSetWindowTransformAtPlacement(CGSConnectionID ciw, CGSWindowID wid, CGAffineTransform transform);
+
 /*! Sets the alpha of a group of windows over a period of time. Note that `duration` is in seconds. */
 CG_EXTERN CGError CGSSetWindowListAlpha(CGSConnectionID cid, const CGSWindowID *widList, int widCount, float alpha, float duration);
 
