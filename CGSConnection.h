@@ -47,8 +47,10 @@ CG_EXTERN bool CGSMenuBarExists(CGSConnectionID cid);
 
 typedef enum {
 	CGSScreenResolutionChangedEvent = 100,
+	CGSScreenDisplayParametersChangedEvent = 101,
 	CGSClientEnterFullscreen = 106,
 	CGSClientExitFullscreen = 107,
+	CGSScreenAcceleratorChangedEvent = 121,
 	CGSWorkspaceConfigurationDisabledEvent = 761, 	
 	CGSWorkspaceConfigurationEnabledEvent = 762, 
 	CGSWindowDidBecomeUnoccludedEvent = 912,
