@@ -50,7 +50,9 @@ typedef enum {
 	CGSClientEnterFullscreen = 106,
 	CGSClientExitFullscreen = 107,
 	CGSWorkspaceConfigurationDisabledEvent = 761, 	
-	CGSWorkspaceConfigurationEnabledEvent = 762,  
+	CGSWorkspaceConfigurationEnabledEvent = 762, 
+	CGSWindowDidBecomeUnoccludedEvent = 912,
+	CGSWindowDidBecomeOccludedEvent = 913,
 	CGSWorkspaceChangedEvent = 1401,
 } CGSConnectionNotifyEvent;
 
