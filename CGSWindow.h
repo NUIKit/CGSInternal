@@ -124,6 +124,9 @@ CG_EXTERN CGError CGSMoveWindow(CGSConnectionID cid, CGSWindowID wid, const CGPo
 /*! Sets the origin (top-left) of a window relative to another window's origin. */
 CG_EXTERN CGError CGSSetWindowOriginRelativeToWindow(CGSConnectionID cid, CGSWindowID wid, CGSWindowID relativeToWID, float offsetX, float offsetY);
 
+/*! Sets the frame and position of a window.  Updates are grouped for the sake of animation. */
+CG_EXTERN CGError CGSMoveWindowWithGroup(CGSConnectionID cid, CGSWindowID wid, CGRect *newFrame);
+
 /* Flushes a window's buffer to the screen. */
 CG_EXTERN CGError CGSFlushWindow(CGSConnectionID cid, CGSWindowID wid, CGSRegionObj flushRegion);
 
