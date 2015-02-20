@@ -251,7 +251,7 @@ CG_EXTERN CGError CGSWindowSetCanAccelerate(CGSConnectionID cid, CGSWindowID wid
 #pragma mark system status items
 
 /*! Registers or unregisters a window as a global status item (see `NSStatusItem`, `NSMenuExtra`). Once a window is registered, the window server takes care of placing it in the apropriate location. */
-CG_EXTERN CGError CGSRegisterWindowWithSystemStatusBar(CGSConnectionID cid, CGSWindowID wid, int priority);
+CG_EXTERN CGError CGSSystemStatusBarRegisterWindow(CGSConnectionID cid, CGSWindowID wid, int priority);
 CG_EXTERN CGError CGSUnregisterWindowWithSystemStatusBar(CGSConnectionID cid, CGSWindowID wid);
 
 /*! Rearranges items in the system status bar. You should call this after registering or unregistering a status item or changing the window's width. */
