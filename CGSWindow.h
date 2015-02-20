@@ -60,8 +60,7 @@ typedef enum {
 	CGSTagTransparent				= 0x00000200, // Transparent to mouse clicks.
 	CGSTagJoinsAllSpaces			= 0x00000800, // The window appears on all workspaces.
 	CGSTagIgnoresCycle				= 0x00040000, // The window does not participate in window cycling.
-	CGSTagNoFullscreen				= 0x00080000, // The window will not go fullscreen.
-	CGSTagUnknown					= 0x00400000, // ? NSWindow uses this.
+	CGSTagFullScreen				= 0x00400000, // The window may go fullscreen.
 } CGSWindowTag;
 
 CG_EXTERN_C_BEGIN
