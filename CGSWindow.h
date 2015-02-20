@@ -48,6 +48,21 @@ typedef enum {
    kCGSBackingBuffered,
 } CGSBackingType;
 
+typedef enum {
+	CGSTagNone						= 0x00000000,	// No tags
+	
+	// Pick one of these.
+	CGSTagExposeBehaviorStationary	= CGSTagNone, // The window is unaffected by Exposé.
+	CGSTagExposeBehaviorManaged		= 0x00000001, // The window participates in Exposé.
+	CGSTagExposeBehaviorTransient	= 0x00000002, // The window floats in spaces, does not participate in Exposé.
+	
+	CGSTagNoShadow					= 0x00000008, // No window shadow.
+	CGSTagTransparent				= 0x00000200, // Transparent to mouse clicks.
+	CGSTagJoinsAllSpaces			= 0x00000800, // The window appears on all workspaces.
+	CGSTagIgnoresCycle				= 0x00040000, // The window does not participate in window cycling.
+	CGSTagNoFullscreen				= 0x00080000, // The window will not go fullscreen.
+	CGSTagUnknown					= 0x00400000, // ? NSWindow uses this.
+} CGSWindowTag;
 
 CG_EXTERN_C_BEGIN
 
@@ -102,9 +117,6 @@ CG_EXTERN CGError CGSSetWindowOwner(CGSConnectionID cid, CGSWindowID wid, CGSCon
 
 /*! Sets the background color of the window. */
 CG_EXTERN CGError CGSSetWindowAutofillColor(CGSConnectionID cid, CGSWindowID wid, float red, float green, float blue);
-
-/*! Locks a window to the cursor, so that whenever the cursor moves, the window moves with it. There doesn't seem to be a way to unlock the window from the cursor. */
-CG_EXTERN CGError CGSLockWindowToCursor(CGSConnectionID cid, CGSWindowID wid, float offsetLeft, float offsetTop);
 
 /*! Sets the warp for the window. The mesh maps a local (window) point to a point on screen. */
 CG_EXTERN CGError CGSSetWindowWarp(CGSConnectionID cid, CGSWindowID wid, int warpWidth, int warpHeight, const CGSWarpPoint *warp);
@@ -176,7 +188,6 @@ CG_EXTERN CGError CGSInvalidateWindowShadow(CGSConnectionID cid, CGSWindowID wid
  */
 CG_EXTERN CGError CGSWindowSetShadowProperties(CGSWindowID wid, CFDictionaryRef properties);
 
-
 #pragma mark window lists
 
 /*! Gets the number of windows the `targetCID` owns. */
@@ -198,11 +209,13 @@ CG_EXTERN CGError CGSGetOnScreenWindowList(CGSConnectionID cid, CGSConnectionID 
 CG_EXTERN CGError CGSNewWindow(CGSConnectionID cid, CGSBackingType backingType, float left, float top, CGSRegionObj region, CGSWindowID *outWID);
 
 /*! Creates a new CGSWindow. The real window top/left is the sum of the region's top/left and the top/left parameters. */
-CG_EXTERN CGError CGSNewWindowWithOpaqueShape(CGSConnectionID cid, CGSBackingType backingType, float left, float top, CGSRegionObj region, CGSRegionObj opaqueShape, int unknown, const int *tags, int tagSize, CGSWindowID *outWID);
+CG_EXTERN CGError CGSNewWindowWithOpaqueShape(CGSConnectionID cid, CGSBackingType backingType, float left, float top, CGSRegionObj region, CGSRegionObj opaqueShape, int unknown, CGSWindowTag *tags, int tagSize, CGSWindowID *outWID);
 
 /*! Releases a CGSWindow. */
 CG_EXTERN CGError CGSReleaseWindow(CGSConnectionID cid, CGSWindowID wid);
 
+/*! Sets the shape over which the window can capture events in its frame rectangle. */
+CG_EXTERN CGError CGSSetWindowEventShape(CGSConnectionID cid, CGSBackingType backingType, CGSRegionObj *shape);
 
 #pragma mark animations
 
@@ -245,14 +258,6 @@ CG_EXTERN CGError CGSUnregisterWindowWithSystemStatusBar(CGSConnectionID cid, CG
 CG_EXTERN CGError CGSAdjustSystemStatusBarWindows(CGSConnectionID cid);
 
 #pragma mark window tags
-
-typedef enum {
-	CGSTagNone			= 0,		// No tags
-	CGSTagExposeFade	= 0x0002,	// Fade out when Expose activates.
-	CGSTagNoShadow		= 0x0008,	// No window shadow.
-	CGSTagTransparent   = 0x0200,   // Transparent to mouse clicks.
-	CGSTagSticky		= 0x0800,	// Appears on all workspaces.
-} CGSWindowTag;
 
 /*! Get the given tags for a window.  `thirtyTwoOrSixtyFour` must be either 32 or 64 for some reason... */
 CG_EXTERN CGError CGSGetWindowTags(CGSConnectionID cid, CGSWindowID wid, CGSWindowTag *tags, int thirtyTwoOrSixtyFour);
