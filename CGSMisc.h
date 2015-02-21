@@ -41,19 +41,6 @@ CG_EXTERN CGError CGSEventSetAppIsUnresponsiveNotificationTimeout(CGSConnectionI
 /*! Sets the cursor position. */
 CG_EXTERN CGError CGSWarpCursorPosition(CGSConnectionID cid, CGFloat x, CGFloat y);
 
-/*! DOCUMENTATION PENDING */
-CG_EXTERN CGError CGSHideBackstopMenuBar(CGSConnectionID cid);
-CG_EXTERN CGError CGSShowBackstopMenuBar(CGSConnectionID cid);
-
-/*! Determines if this computer is portable. Internally this just checks to see if it has a battery. */
-CG_EXTERN bool CGSIsPortableMachine(void);
-
-/*! Sets the area taken up by the dock. Requires the caller to be a universal owner. */
-CG_EXTERN CGError CGSSetDockRect(CGSConnectionID cid, CGFloat x, CGFloat y, CGFloat width, CGFloat height);
-
-/*! DOCUMENTATION PENDING - returns false. Perhaps related to the CGSTBE_QDACCEL env variable. */
-CG_EXTERN bool CGSIsClassicBuffered(void);
-
 #pragma mark errors
 /* Logs an error and returns `err`. */
 CG_EXTERN CGError CGSGlobalError(CGError err, const char *msg);
