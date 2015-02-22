@@ -1,6 +1,6 @@
 //
-//  NUIWindow.m
-//  NUIKit
+//  CGSSurface.h
+//	CGSInternal
 //
 //  Created by Robert Widmann on 9/14/13.
 //  Copyright (c) 2015 CodaFi. All rights reserved.
