@@ -124,6 +124,9 @@ CG_EXTERN CGError CGSSetWindowWarp(CGSConnectionID cid, CGSWindowID wid, int war
 CG_EXTERN CGError CGSGetWindowAutofill(CGSConnectionID cid, CGSWindowID wid, bool *outShouldAutoFill);
 CG_EXTERN CGError CGSSetWindowAutofill(CGSConnectionID cid, CGSWindowID wid, bool shouldAutoFill);
 
+/*! Sets whether a window can recieve mouse events.  If no, events will pass to the next window that can receive the event. */
+CG_EXTERN CGError CGSSetMouseEventEnableFlags(CGSConnectionID cid, CGSWindowID wid, bool shouldEnable);
+
 /*! Gets the screen rect for a window. */
 CG_EXTERN CGError CGSGetScreenRectForWindow(CGSConnectionID cid, CGSWindowID wid, CGRect *outRect);
 
