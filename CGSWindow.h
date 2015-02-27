@@ -56,6 +56,8 @@ typedef enum {
 	CGSTagExposeBehaviorManaged		= 0x00000001, // The window participates in Exposé.
 	CGSTagExposeBehaviorTransient	= 0x00000002, // The window floats in spaces, does not participate in Exposé.
 	
+	CGSTagShowsAppBadge				= 0x00000004, // The window shows a badge when minimized into its Dock Tile.
+	
 	CGSTagNoShadow					= 0x00000008, // No window shadow.
 	CGSTagTransparent				= 0x00000200, // Transparent to mouse clicks.
 	CGSTagJoinsAllSpaces			= 0x00000800, // The window appears on all workspaces.
