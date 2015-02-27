@@ -46,16 +46,19 @@ CG_EXTERN bool CGSMenuBarExists(CGSConnectionID cid);
 #pragma mark notifications
 
 typedef enum {
-	CGSScreenResolutionChangedEvent = 100,
-	CGSScreenDisplayParametersChangedEvent = 101,
-	CGSClientEnterFullscreen = 106,
-	CGSClientExitFullscreen = 107,
-	CGSScreenAcceleratorChangedEvent = 121,
-	CGSWorkspaceConfigurationDisabledEvent = 761, 	
-	CGSWorkspaceConfigurationEnabledEvent = 762, 
-	CGSWindowDidBecomeUnoccludedEvent = 912,
-	CGSWindowDidBecomeOccludedEvent = 913,
-	CGSWorkspaceChangedEvent = 1401,
+	CGSScreenResolutionChangedEvent			= 100,
+	CGSScreenDisplayParametersChangedEvent	= 101,
+	CGSClientEnterFullscreen				= 106,
+	CGSClientExitFullscreen					= 107,
+	CGSScreenAcceleratorChangedEvent		= 121,
+	CGSWorkspaceConfigurationDisabledEvent	= 761, 	
+	CGSWorkspaceConfigurationEnabledEvent	= 762, 
+	CGSWindowDidBecomeUnoccludedEvent		= 912,
+	CGSWindowDidBecomeOccludedEvent			= 913,
+	CGSWindowWasMovedByDockEvent			= 1205,
+	CGSWindowWasResizedByDockEvent			= 1207,
+	CGSWindowDidBecomeManagedByDockEvent	= 1208,
+	CGSWorkspaceChangedEvent				= 1401,
 } CGSConnectionNotifyEvent;
 
 typedef void (*CGConnectionNotifyProc)(int data1, int data2, int data3, void* userParameter);
