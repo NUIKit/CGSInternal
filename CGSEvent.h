@@ -155,5 +155,8 @@ struct _CGSEventRecord {
 
 typedef struct _CGSEventRecord CGSEventRecord;
 
+/*! Gets the event record for a given CGEvent.  For Carbon events, use GetEventPlatformEventRecord. */
+CG_EXTERN CGError CGEventGetEventRecord(CGEventRef event, CGSEventRecord *outRecord);
+
 CG_EXTERN_C_END
 
