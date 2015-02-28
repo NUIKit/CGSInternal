@@ -218,8 +218,11 @@ CG_EXTERN CGError CGSNewWindowWithOpaqueShape(CGSConnectionID cid, CGSBackingTyp
 /*! Releases a CGSWindow. */
 CG_EXTERN CGError CGSReleaseWindow(CGSConnectionID cid, CGSWindowID wid);
 
-/*! Sets the shape over which the window can capture events in its frame rectangle. */
+/*! DEPRECATED: Sets the shape over which the window can capture events in its frame rectangle. */
 CG_EXTERN CGError CGSSetWindowEventShape(CGSConnectionID cid, CGSBackingType backingType, CGSRegionObj *shape);
+
+/*! Sets the shape over which the window can capture events in its frame rectangle. */
+CG_EXTERN CGError CGSAddActivationRegion(CGSConnectionID cid, CGWindowID wid, CGSRegionObj region);
 
 #pragma mark animations
 
