@@ -43,9 +43,9 @@ typedef enum {
 } CGSWindowOrderingMode;
 
 typedef enum {
-   kCGSBackingNonRetianed,
-   kCGSBackingRetained,
-   kCGSBackingBuffered,
+	kCGSBackingNonRetianed,
+	kCGSBackingRetained,
+	kCGSBackingBuffered,
 } CGSBackingType;
 
 typedef enum {
@@ -59,7 +59,11 @@ typedef enum {
 	CGSTagShowsAppBadge				= 0x00000004, // The window shows a badge when minimized into its Dock Tile.
 	
 	CGSTagNoShadow					= 0x00000008, // No window shadow.
+	
+	// Pick one of these.
 	CGSTagTransparent				= 0x00000200, // Transparent to mouse clicks.
+	CGSTagOpaque					= 0x00000400, // Accepts mouse clicks.
+	
 	CGSTagJoinsAllSpaces			= 0x00000800, // The window appears on all workspaces.
 	CGSTagIgnoresCycle				= 0x00040000, // The window does not participate in window cycling.
 	CGSTagFullScreen				= 0x00400000, // The window may go fullscreen.
@@ -223,6 +227,9 @@ CG_EXTERN CGError CGSSetWindowEventShape(CGSConnectionID cid, CGSBackingType bac
 
 /*! Sets the shape over which the window can capture events in its frame rectangle. */
 CG_EXTERN CGError CGSAddActivationRegion(CGSConnectionID cid, CGWindowID wid, CGSRegionObj region);
+
+/*! Sets the shape over which the window can recieve mouse drag events. */
+CG_EXTERN CGError CGSAddDragRegion(CGSConnectionID cid, CGWindowID wid, CGSRegionObj region);
 
 #pragma mark animations
 
