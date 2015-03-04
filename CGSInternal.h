@@ -27,21 +27,16 @@
 
 // WARNING: CGSInternal contains PRIVATE FUNCTIONS and should NOT BE USED in shipping applications!
 
-#ifndef MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5
-	#define AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER UNAVAILABLE_ATTRIBUTE
-	#define DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER
-#endif
-
-#include "CarbonHelpers.h"
 #include "CGSAccessibility.h"
 #include "CGSCIFilter.h"
 #include "CGSConnection.h"
 #include "CGSCursor.h"
 #include "CGSDebug.h"
 #include "CGSDisplays.h"
+#include "CGSEvent.h"
 #include "CGSHotKeys.h"
-#include "CGSNotifications.h"
 #include "CGSMisc.h"
+#include "CGSNotifications.h"
 #include "CGSRegion.h"
 #include "CGSSession.h"
 #include "CGSTransitions.h"
