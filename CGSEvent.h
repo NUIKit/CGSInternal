@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include "Compatability.h"
 #include "CGSWindow.h"
 
 typedef unsigned long CGSNotificationType;
