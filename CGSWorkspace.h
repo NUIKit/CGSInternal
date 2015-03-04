@@ -43,12 +43,11 @@ CG_EXTERN CGError CGSSetWorkspace(CGSConnectionID cid, CGSWorkspaceID workspace)
 CG_EXTERN CGError CGSSetWorkspaceWithTransition(CGSConnectionID cid, CGSWorkspaceID workspace, CGSTransitionType transition, CGSTransitionFlags options, CGFloat duration);
 
 /*! Gets and sets the workspace for a window. */
-CG_EXTERN CGError CGSGetWindowWorkspace(CGSConnectionID cid, CGSWindowID wid, CGSWorkspaceID *outWorkspace);
-CG_EXTERN CGError CGSSetWindowWorkspace(CGSConnectionID cid, CGSWindowID wid, CGSWorkspaceID workspace);
+CG_EXTERN CGError CGSGetWindowWorkspace(CGSConnectionID cid, CGWindowID wid, CGSWorkspaceID *outWorkspace);
+CG_EXTERN CGError CGSSetWindowWorkspace(CGSConnectionID cid, CGWindowID wid, CGSWorkspaceID workspace);
 
 /*! Gets the number of windows in the workspace. */
 CG_EXTERN CGError CGSGetWorkspaceWindowCount(CGSConnectionID cid, int workspaceNumber, int *outCount);
-CG_EXTERN CGError CGSGetWorkspaceWindowList(CGSConnectionID cid, int workspaceNumber, int count, CGSWindowID *list, int *outCount);
-
+CG_EXTERN CGError CGSGetWorkspaceWindowList(CGSConnectionID cid, int workspaceNumber, int count, CGWindowID *list, int *outCount);
 
 CG_EXTERN_C_END

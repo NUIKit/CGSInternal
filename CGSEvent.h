@@ -147,7 +147,7 @@ struct _CGSEventRecord {
 	CGPoint windowLocation;     /* Coordinates relative to window */
 	CGSEventRecordTime time;    /* nanoseconds since startup */
 	CGSEventFlag flags;         /* key state flags */
-	CGSWindowID window;         /* window number of assigned window */
+	CGWindowID window;         /* window number of assigned window */
 	CGSConnectionID connection; /* connection the event came from */
 	CGSEventRecordData data;    /* type-dependent data: 40 bytes */
 };
@@ -158,4 +158,3 @@ typedef struct _CGSEventRecord CGSEventRecord;
 CG_EXTERN CGError CGEventGetEventRecord(CGEventRef event, CGSEventRecord *outRecord);
 
 CG_EXTERN_C_END
-

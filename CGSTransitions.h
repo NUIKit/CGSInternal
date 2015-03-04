@@ -58,7 +58,7 @@ typedef struct {
 	int unknown; // always set to zero
 	CGSTransitionType type;
 	CGSTransitionFlags options;
-	CGSWindowID wid; /* 0 means a full screen transition. */
+	CGWindowID wid; /* 0 means a full screen transition. */
 	CGFloat *backColor; /* NULL means black. */
 } CGSTransitionSpec;
 
