@@ -25,9 +25,10 @@
 #include "CGSConnection.h"
 #include "CGSRegion.h"
 
-typedef int CGSWindowID;
-typedef int CGSAnimationObj;
-typedef struct { CGPoint localPoint; CGPoint globalPoint; } CGSWarpPoint;
+typedef int64_t CGSWindowID;
+typedef CFTypeRef CGSAnimationRef;
+typedef CFTypeRef CGSWindowBackdropRef;
+typedef struct CGSWarpPoint CGSWarpPoint;
 
 typedef enum {
 	kCGSSharingNone,
@@ -71,6 +72,11 @@ typedef enum {
 
 CG_EXTERN_C_BEGIN
 
+struct CGSWarpPoint { 
+	CGPoint localPoint; 
+	CGPoint globalPoint; 
+};
+
 /*! Switches to the next (or previous) window in the global list. */
 CG_EXTERN CGError CGSCycleWindows(CGSConnectionID cid, CGSWindowOrderingMode order);
 
@@ -92,6 +98,9 @@ CG_EXTERN CGError CGSSetWindowOpacity(CGSConnectionID cid, CGSWindowID wid, bool
 /*! Gets and sets the window's transparency. */
 CG_EXTERN CGError CGSGetWindowAlpha(CGSConnectionID cid, CGSWindowID wid, float *outAlpha);
 CG_EXTERN CGError CGSSetWindowAlpha(CGSConnectionID cid, CGSWindowID wid, float alpha);
+
+CG_EXTERN CGError CGSGetWindowEventMask(CGSConnectionID cid, CGSWindowID wid, CGEventMask *mask);
+CG_EXTERN CGError CGSSetWindowEventMask(CGSConnectionID cid, CGSWindowID wid, CGEventMask mask);
 
 /*! Gets and sets the window's transform. 
  
@@ -133,6 +142,9 @@ CG_EXTERN CGError CGSSetWindowAutofill(CGSConnectionID cid, CGSWindowID wid, boo
 /*! Sets whether a window can recieve mouse events.  If no, events will pass to the next window that can receive the event. */
 CG_EXTERN CGError CGSSetMouseEventEnableFlags(CGSConnectionID cid, CGSWindowID wid, bool shouldEnable);
 
+/*! Forces a window to acquire key window status. */
+CG_EXTERN CGError CGSSetMouseFocusWindow(CGSConnectionID cid, CGWindowID wid);
+
 /*! Gets the screen rect for a window. */
 CG_EXTERN CGError CGSGetScreenRectForWindow(CGSConnectionID cid, CGSWindowID wid, CGRect *outRect);
 
@@ -147,6 +159,8 @@ CG_EXTERN CGError CGSSetWindowSharingState(CGSConnectionID cid, CGSWindowID wid,
 /*! Sets whether this window is ignored in the global window cycle (Control-F4 by default). There is no Get version? */
 CG_EXTERN CGError CGSSetIgnoresCycle(CGSConnectionID cid, CGSWindowID wid, bool ignoresCycle);
 
+CG_EXTERN CGError CGSSetWindowHasKeyAppearance(CGSConnectionID cid, CGSWindowID wid, bool hasKeyAppearance);
+
 /*! Creates a graphics context for the window. 
  
  Acceptable keys options:
@@ -158,6 +172,8 @@ CG_EXTERN CGContextRef CGWindowContextCreate(CGSConnectionID cid, CGSWindowID wi
 /*! Sets the order of a window */
 CG_EXTERN CGError CGSOrderWindow(CGSConnectionID cid, CGSWindowID wid, CGSWindowOrderingMode mode, CGSWindowID relativeToWID);
 
+CG_EXTERN CGError CGSOrderFrontConditionally(CGSConnectionID cid, CGSWindowID wid, bool force);
+
 /*! Sets the origin (top-left) of a window */
 CG_EXTERN CGError CGSMoveWindow(CGSConnectionID cid, CGSWindowID wid, const CGPoint *origin);
 
@@ -168,7 +184,7 @@ CG_EXTERN CGError CGSSetWindowOriginRelativeToWindow(CGSConnectionID cid, CGSWin
 CG_EXTERN CGError CGSMoveWindowWithGroup(CGSConnectionID cid, CGSWindowID wid, CGRect *newFrame);
 
 /* Flushes a window's buffer to the screen. */
-CG_EXTERN CGError CGSFlushWindow(CGSConnectionID cid, CGSWindowID wid, CGSRegionObj flushRegion);
+CG_EXTERN CGError CGSFlushWindow(CGSConnectionID cid, CGSWindowID wid, CGSRegionRef flushRegion);
 
 
 #pragma mark shadows
@@ -214,42 +230,44 @@ CG_EXTERN CGError CGSGetOnScreenWindowList(CGSConnectionID cid, CGSConnectionID 
 #pragma mark window management
 
 /*! Creates a new CGSWindow. The real window top/left is the sum of the region's top/left and the top/left parameters. */
-CG_EXTERN CGError CGSNewWindow(CGSConnectionID cid, CGSBackingType backingType, float left, float top, CGSRegionObj region, CGSWindowID *outWID);
+CG_EXTERN CGError CGSNewWindow(CGSConnectionID cid, CGSBackingType backingType, float left, float top, CGSRegionRef region, CGSWindowID *outWID);
 
 /*! Creates a new CGSWindow. The real window top/left is the sum of the region's top/left and the top/left parameters. */
-CG_EXTERN CGError CGSNewWindowWithOpaqueShape(CGSConnectionID cid, CGSBackingType backingType, float left, float top, CGSRegionObj region, CGSRegionObj opaqueShape, int unknown, CGSWindowTag *tags, int tagSize, CGSWindowID *outWID);
+CG_EXTERN CGError CGSNewWindowWithOpaqueShape(CGSConnectionID cid, CGSBackingType backingType, float left, float top, CGSRegionRef region, CGSRegionRef opaqueShape, int unknown, CGSWindowTag *tags, int tagSize, CGSWindowID *outWID);
 
 /*! Releases a CGSWindow. */
 CG_EXTERN CGError CGSReleaseWindow(CGSConnectionID cid, CGSWindowID wid);
 
 /*! DEPRECATED: Sets the shape over which the window can capture events in its frame rectangle. */
-CG_EXTERN CGError CGSSetWindowEventShape(CGSConnectionID cid, CGSBackingType backingType, CGSRegionObj *shape);
+CG_EXTERN CGError CGSSetWindowEventShape(CGSConnectionID cid, CGSBackingType backingType, CGSRegionRef *shape);
 
 /*! Sets the shape over which the window can capture events in its frame rectangle. */
-CG_EXTERN CGError CGSAddActivationRegion(CGSConnectionID cid, CGWindowID wid, CGSRegionObj region);
+CG_EXTERN CGError CGSAddActivationRegion(CGSConnectionID cid, CGWindowID wid, CGSRegionRef region);
 
 /*! Sets the shape over which the window can recieve mouse drag events. */
-CG_EXTERN CGError CGSAddDragRegion(CGSConnectionID cid, CGWindowID wid, CGSRegionObj region);
+CG_EXTERN CGError CGSAddDragRegion(CGSConnectionID cid, CGWindowID wid, CGSRegionRef region);
+
+CG_EXTERN CGError CGSDragWindowRelativeToMouse(CGSConnectionID cid, CGWindowID wid, CGPoint point);
 
 #pragma mark animations
 
 /*! Creates a Dock-style genie animation that goes from `wid` to `destinationWID`. */
-CG_EXTERN CGError CGSCreateGenieWindowAnimation(CGSConnectionID cid, CGSWindowID wid, CGSWindowID destinationWID, CGSAnimationObj *outAnimation);
+CG_EXTERN CGError CGSCreateGenieWindowAnimation(CGSConnectionID cid, CGSWindowID wid, CGSWindowID destinationWID, CGSAnimationRef *outAnimation);
 
 /*! Creates a sheet animation that's used when the parent window is brushed metal. Oddly enough, seems to be the only one used, even if the parent window isn't metal. */
-CG_EXTERN CGError CGSCreateMetalSheetWindowAnimationWithParent(CGSConnectionID cid, CGSWindowID wid, CGSWindowID parentWID, CGSAnimationObj *outAnimation);
+CG_EXTERN CGError CGSCreateMetalSheetWindowAnimationWithParent(CGSConnectionID cid, CGSWindowID wid, CGSWindowID parentWID, CGSAnimationRef *outAnimation);
 
 /*! Sets the progress of an animation. */
-CG_EXTERN CGError CGSSetWindowAnimationProgress(CGSAnimationObj animation, float progress);
+CG_EXTERN CGError CGSSetWindowAnimationProgress(CGSAnimationRef animation, float progress);
 
 /*! DOCUMENTATION PENDING */
-CG_EXTERN CGError CGSWindowAnimationChangeLevel(CGSAnimationObj animation, CGWindowLevel level);
+CG_EXTERN CGError CGSWindowAnimationChangeLevel(CGSAnimationRef animation, CGWindowLevel level);
 
 /*! DOCUMENTATION PENDING */
-CG_EXTERN CGError CGSWindowAnimationSetParent(CGSAnimationObj animation, CGSWindowID parent) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
+CG_EXTERN CGError CGSWindowAnimationSetParent(CGSAnimationRef animation, CGSWindowID parent) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
 /*! Releases a window animation. */
-CG_EXTERN CGError CGSReleaseWindowAnimation(CGSAnimationObj animation);
+CG_EXTERN CGError CGSReleaseWindowAnimation(CGSAnimationRef animation);
 
 
 #pragma mark window accelleration
@@ -281,5 +299,18 @@ CG_EXTERN CGError CGSSetWindowTags(CGSConnectionID cid, CGSWindowID wid, CGSWind
 
 /*! Clear the given tags for a window.  `thirtyTwoOrSixtyFour` must be either 32 or 64 for some reason... */
 CG_EXTERN CGError CGSClearWindowTags(CGSConnectionID cid, CGSWindowID wid, CGSWindowTag *tags, int thirtyTwoOrSixtyFour);
+
+#pragma mark window backdrop
+
+/*! Creates a new window backdrop with a given material and frame.  The window server will apply the backdrop's material effect to the window using the default CGConnection. */
+CG_EXTERN CGSWindowBackdropRef CGSWindowBackdropCreateWithLevel(CGSWindowID wid, CFStringRef materialName, CGWindowLevel level, CGRect frame) AVAILABLE_MAC_OS_X_VERSION_10_10_AND_LATER;
+CG_EXTERN void CGSWindowBackdropRelease(CGSWindowBackdropRef backdrop) AVAILABLE_MAC_OS_X_VERSION_10_10_AND_LATER;
+
+/*! Activates the backdrop's effect.  OS X currently only makes the key window's backdrop active. */
+CG_EXTERN void CGSWindowBackdropActivate(CGSWindowBackdropRef backdrop) AVAILABLE_MAC_OS_X_VERSION_10_10_AND_LATER;
+CG_EXTERN void CGSWindowBackdropDeactivate(CGSWindowBackdropRef backdrop) AVAILABLE_MAC_OS_X_VERSION_10_10_AND_LATER;
+
+/*! Sets the saturation of the backdrop.  For certain material types this can imitate the "vibrancy" effect in AppKit. */
+CG_EXTERN void CGSWindowBackdropSetSaturation(CGSWindowBackdropRef backdrop, CGFloat saturation) AVAILABLE_MAC_OS_X_VERSION_10_10_AND_LATER;
 
 CG_EXTERN_C_END
