@@ -86,12 +86,8 @@ typedef struct {
 
 typedef void (*CGSNotifyProcPtr)(CGSNotificationType type, void *data, unsigned int dataLength, void *userData);
 
-CG_EXTERN_C_BEGIN
-
 //! Registers a function to receive notifications.
 CG_EXTERN CGError CGSRegisterNotifyProc(CGSNotifyProcPtr proc, CGSNotificationType type, void *userData);
 
 //! Unregisters a function that was registered to receive notifications.
 CG_EXTERN CGError CGSRemoveNotifyProc(CGSNotifyProcPtr proc, CGSNotificationType type, void *userData);
-
-CG_EXTERN_C_END

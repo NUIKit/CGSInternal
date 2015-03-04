@@ -24,8 +24,6 @@
 
 #pragma once
 
-CG_EXTERN_C_BEGIN
-
 /*! Begins a new display configuration transacation. */
 CG_EXTERN CGDisplayErr CGSBeginDisplayConfiguration(CGDisplayConfigRef *config);
 
@@ -62,5 +60,3 @@ CG_EXTERN CGError CGSGetDisplayBounds(CGDirectDisplayID display, CGRect *outRect
 
 /*! Gets the number of bytes per row. */
 CG_EXTERN CGError CGSGetDisplayRowBytes(CGDirectDisplayID display, int *outRowBytes);
-
-CG_EXTERN_C_END

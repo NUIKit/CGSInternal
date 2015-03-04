@@ -24,8 +24,6 @@
 #pragma once
 #include "CGSInternal.h"
 
-CG_EXTERN_C_BEGIN
-
 /*! DOCUMENTATION PENDING */
 CG_EXTERN CGError CGSFetchDirtyScreenRegion(CGSConnectionID cid, CGSRegionObj *outDirtyRegion);
 
@@ -55,5 +53,3 @@ CG_EXTERN char *CGSErrorString(CGError error);
 /*! Gets and sets the status of secure input. When secure input is enabled, keyloggers, etc are harder to do. */
 CG_EXTERN bool CGSIsSecureEventInputSet(void);
 CG_EXTERN CGError CGSSetSecureEventInput(CGSConnectionID cid, bool useSecureInput);
-
-CG_EXTERN_C_END

@@ -24,8 +24,6 @@
 #pragma once
 #include "CGSConnection.h"
 
-CG_EXTERN_C_BEGIN
-
 /*! Gets whether the display is zoomed. I'm not sure why there's two calls that appear to do the same thing - I think CGSIsZoomed calls through to CGSDisplayIsZoomed. */
 CG_EXTERN bool CGSDisplayIsZoomed(void);
 CG_EXTERN CGError CGSIsZoomed(CGSConnectionID cid, bool *outIsZoomed);
@@ -44,5 +42,3 @@ CG_EXTERN void CGDisplayForceToGray(bool forceToGray);
 
 /*! Sets the display's contrast. There doesn't seem to be a get version of this function. */
 CG_EXTERN CGError CGSSetDisplayContrast(CGFloat contrast);
-
-CG_EXTERN_C_END

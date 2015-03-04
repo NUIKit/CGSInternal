@@ -62,8 +62,6 @@ typedef struct {
 	CGFloat *backColor; /* NULL means black. */
 } CGSTransitionSpec;
 
-CG_EXTERN_C_BEGIN
-
 /*! Creates a new transition from a `CGSTransitionSpec`. */
 CG_EXTERN CGError CGSNewTransition(CGSConnectionID cid, const CGSTransitionSpec *spec, CGSTransitionID *outTransition);
 
@@ -72,5 +70,3 @@ CG_EXTERN CGError CGSInvokeTransition(CGSConnectionID cid, CGSTransitionID trans
 
 /*! Releases a transition. */
 CG_EXTERN CGError CGSReleaseTransition(CGSConnectionID cid, CGSTransitionID transition);
-
-CG_EXTERN_C_END

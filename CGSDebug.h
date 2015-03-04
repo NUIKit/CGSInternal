@@ -102,13 +102,9 @@ typedef enum {
 } CGSDebugOption;
 
 
-CG_EXTERN_C_BEGIN
-
 /*! Gets and sets the debug options. These options are global and are not reset when your application dies! */
 CG_EXTERN CGError CGSGetDebugOptions(int *outCurrentOptions);
 CG_EXTERN CGError CGSSetDebugOptions(int options);
 
 /*! Queries the server about its performance. This is how Quartz Debug gets the FPS meter, but not the CPU meter (for that it uses host_processor_info). Quartz Debug subtracts 25 so that it is at zero with the minimum FPS. */
 CG_EXTERN CGError CGSGetPerformanceData(CGSConnectionID cid, CGFloat *outFPS, CGFloat *unk, CGFloat *unk2, CGFloat *unk3);
-
-CG_EXTERN_C_END

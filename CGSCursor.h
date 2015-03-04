@@ -27,8 +27,6 @@
 typedef int CGSCursorID;
 
 
-CG_EXTERN_C_BEGIN
-
 /*! Does the system support hardware cursors? */
 CG_EXTERN CGError CGSSystemSupportsHardwareCursor(CGSConnectionID cid, bool *outSupportsHardwareCursor);
 
@@ -73,5 +71,3 @@ CG_EXTERN int CGSCurrentCursorSeed(void);
 
 /*! Shows or hides the spinning beachball of death. */
 CG_EXTERN CGError CGSForceWaitCursorActive(CGSConnectionID cid, bool showWaitCursor);
-
-CG_EXTERN_C_END

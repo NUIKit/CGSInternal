@@ -26,8 +26,6 @@
 typedef CFTypeRef CGSRegionRef;
 typedef CFTypeRef CGSRegionEnumeratorRef;
 
-CG_EXTERN_C_BEGIN
-
 /*! Creates a region from a `CGRect`. */
 CG_EXTERN CGError CGSNewRegionWithRect(const CGRect *rect, CGSRegionRef *outRegion);
 
@@ -98,5 +96,3 @@ CG_EXTERN void CGSReleaseRegionEnumerator(CGSRegionEnumeratorRef enumerator);
 
 /*! Gets the next rect of a region. */
 CG_EXTERN CGRect* CGSNextRect(CGSRegionEnumeratorRef enumerator);
-
-CG_EXTERN_C_END

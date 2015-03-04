@@ -33,8 +33,6 @@ static const CGSWorkspaceID kCGSTransitioningWorkspaceID = 65538;
 
 
 
-CG_EXTERN_C_BEGIN
-
 /*! Gets and sets the current workspace. */
 CG_EXTERN CGError CGSGetWorkspace(CGSConnectionID cid, CGSWorkspaceID *outWorkspace);
 CG_EXTERN CGError CGSSetWorkspace(CGSConnectionID cid, CGSWorkspaceID workspace);
@@ -49,5 +47,3 @@ CG_EXTERN CGError CGSSetWindowWorkspace(CGSConnectionID cid, CGWindowID wid, CGS
 /*! Gets the number of windows in the workspace. */
 CG_EXTERN CGError CGSGetWorkspaceWindowCount(CGSConnectionID cid, int workspaceNumber, int *outCount);
 CG_EXTERN CGError CGSGetWorkspaceWindowList(CGSConnectionID cid, int workspaceNumber, int count, CGWindowID *list, int *outCount);
-
-CG_EXTERN_C_END

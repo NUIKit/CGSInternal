@@ -11,8 +11,6 @@
 #include "Compatability.h"
 #include "CGSWindow.h"
 
-CG_EXTERN_C_BEGIN
-
 /*! Adds a drawable surface to a window. */
 CG_EXTERN CGError CGSAddSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID *outSID);
 
@@ -36,7 +34,5 @@ CG_EXTERN CGError CGSOrderSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfac
 
 /*! Flushes a surface to its window. */
 CG_EXTERN CGError CGSFlushSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID, int param);
-
-CG_EXTERN_C_END
 
 

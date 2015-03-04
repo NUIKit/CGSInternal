@@ -29,8 +29,6 @@ typedef int CGSConnectionID;
 static const CGSConnectionID kCGSNullConnectionID = 0;
 
 
-CG_EXTERN_C_BEGIN
-
 /*! DOCUMENTATION PENDING - verify this is Leopard only! */
 CG_EXTERN CGError CGSSetLoginwindowConnection(CGSConnectionID cid) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 CG_EXTERN CGError CGSSetLoginwindowConnectionWithOptions(CGSConnectionID cid, CFDictionaryRef options) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
@@ -107,5 +105,3 @@ CG_EXTERN CGError CGSSetUniversalOwner(CGSConnectionID cid);
 
 /*! Sets a connection to be a universal owner. This call requires `cid` be a universal connection. */
 CG_EXTERN CGError CGSSetOtherUniversalConnection(CGSConnectionID cid, CGSConnectionID otherConnection);
-
-CG_EXTERN_C_END

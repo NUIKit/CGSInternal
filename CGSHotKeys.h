@@ -104,8 +104,6 @@ typedef enum {
 } CGSGlobalHotKeyOperatingMode;
 
 
-CG_EXTERN_C_BEGIN
-
 /*! DOCUMENTATION PENDING */
 CG_EXTERN CGError CGSGetSymbolicHotKeyValue(CGSSymbolicHotKey hotKey, int *unknown, int *outVirtualKeyCode, int *outModifiers);
 
@@ -116,5 +114,3 @@ CG_EXTERN CGError CGSSetSymbolicHotKeyEnabled(CGSSymbolicHotKey hotKey, bool isE
 /*! Gets and sets the global hotkey operating mode. This can be used to disable all hotkeys. */
 CG_EXTERN CGError CGSGetGlobalHotKeyOperatingMode(CGSConnectionID cid, CGSGlobalHotKeyOperatingMode *outMode);
 CG_EXTERN CGError CGSSetGlobalHotKeyOperatingMode(CGSConnectionID cid, CGSGlobalHotKeyOperatingMode mode);
-
-CG_EXTERN_C_END

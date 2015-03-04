@@ -45,5 +45,3 @@ CG_EXTERN CGError CGSSetCIFilterValuesFromDictionary(CGSConnectionID cid, CGSCIF
 
 /*! Releases a CIFilter. */
 CG_EXTERN CGError CGSReleaseCIFilter(CGSConnectionID cid, CGSCIFilterID filter);
-
-CG_EXTERN_C_END

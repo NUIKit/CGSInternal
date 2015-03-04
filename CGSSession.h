@@ -26,8 +26,6 @@
 
 typedef int CGSSessionID;
 
-CG_EXTERN_C_BEGIN
-
 /*! Gets information about the current login session. Keys as of 10.4:
 	kCGSSessionGroupIDKey
 	kCGSSessionOnConsoleKey
@@ -50,5 +48,3 @@ CG_EXTERN CGError CGSReleaseSession(CGSSessionID session);
 
 /*! Gets a list of sessions. Each session dictionary is in the format returned by `CGSCopyCurrentSessionDictionary`. */
 CG_EXTERN CFArrayRef CGSCopySessionList(void);
-
-CG_EXTERN_C_END

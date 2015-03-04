@@ -69,8 +69,6 @@ typedef enum {
 	CGSTagFullScreen				= 0x00400000, // The window may go fullscreen.
 } CGSWindowTag;
 
-CG_EXTERN_C_BEGIN
-
 struct CGSWarpPoint { 
 	CGPoint localPoint; 
 	CGPoint globalPoint; 
@@ -314,5 +312,3 @@ CG_EXTERN void CGSWindowBackdropSetSaturation(CGSWindowBackdropRef backdrop, CGF
 
 /*! Sets the bleed for the window's backdrop effect.  Vibrant NSWindows use ~0.2. */
 CG_EXTERN void CGSWindowSetBackdropBackgroundBleed(CGWindowID wid, CGFloat bleedAmount) AVAILABLE_MAC_OS_X_VERSION_10_10_AND_LATER;
-
-CG_EXTERN_C_END
