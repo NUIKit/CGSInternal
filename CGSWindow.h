@@ -183,6 +183,8 @@ CG_EXTERN CGError CGSMoveWindowWithGroup(CGSConnectionID cid, CGWindowID wid, CG
 /* Flushes a window's buffer to the screen. */
 CG_EXTERN CGError CGSFlushWindow(CGSConnectionID cid, CGWindowID wid, CGSRegionRef flushRegion);
 
+/* Gets the mouse's current location inside the bounds rectangle of the window. */
+CG_EXTERN CGError CGSGetWindowMouseLocation(CGSConnectionID cid, CGWindowID wid, CGPoint *outPos);
 
 #pragma mark shadows
 
