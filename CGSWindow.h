@@ -246,6 +246,9 @@ CG_EXTERN CGError CGSAddActivationRegion(CGSConnectionID cid, CGWindowID wid, CG
 /*! Sets the shape over which the window can recieve mouse drag events. */
 CG_EXTERN CGError CGSAddDragRegion(CGSConnectionID cid, CGWindowID wid, CGSRegionRef region);
 
+/*! Removes any shapes over which the window can be dragged. */
+CG_EXTERN CGError CGSClearDragRegion(CGSConnectionID cid, CGWindowID wid);
+
 CG_EXTERN CGError CGSDragWindowRelativeToMouse(CGSConnectionID cid, CGWindowID wid, CGPoint point);
 
 #pragma mark animations
