@@ -29,6 +29,8 @@ typedef CFTypeRef CGSAnimationRef;
 typedef CFTypeRef CGSWindowBackdropRef;
 typedef struct CGSWarpPoint CGSWarpPoint;
 
+#define kCGSRealMaximumTagSize (sizeof(void *) * 8)
+
 typedef enum {
 	kCGSSharingNone,
 	kCGSSharingReadOnly,
@@ -293,14 +295,14 @@ CG_EXTERN CGError CGSAdjustSystemStatusBarWindows(CGSConnectionID cid);
 
 #pragma mark window tags
 
-/*! Get the given tags for a window.  `thirtyTwoOrSixtyFour` must be either 32 or 64 for some reason... */
-CG_EXTERN CGError CGSGetWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, int thirtyTwoOrSixtyFour);
+/*! Get the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize. */
+CG_EXTERN CGError CGSGetWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, size_t maxTagSize);
 
-/*! Set the given tags for a window.  `thirtyTwoOrSixtyFour` must be either 32 or 64 for some reason... */
-CG_EXTERN CGError CGSSetWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, int thirtyTwoOrSixtyFour);
+/*! Set the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize.*/
+CG_EXTERN CGError CGSSetWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, size_t maxTagSize);
 
-/*! Clear the given tags for a window.  `thirtyTwoOrSixtyFour` must be either 32 or 64 for some reason... */
-CG_EXTERN CGError CGSClearWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, int thirtyTwoOrSixtyFour);
+/*! Clear the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize. */
+CG_EXTERN CGError CGSClearWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, size_t maxTagSize);
 
 #pragma mark window backdrop
 
