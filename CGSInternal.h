@@ -39,6 +39,8 @@
 #include "CGSNotifications.h"
 #include "CGSRegion.h"
 #include "CGSSession.h"
+#include "CGSSpace.h"
+#include "CGSSurface.h"
 #include "CGSTransitions.h"
 #include "CGSWindow.h"
 #include "CGSWorkspace.h"
