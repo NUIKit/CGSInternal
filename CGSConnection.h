@@ -25,7 +25,9 @@
 
 typedef int CGSConnectionID;
 static const CGSConnectionID kCGSNullConnectionID = 0;
-
+typedef unsigned long CGSNotificationType;
+typedef void * CGSNotificationData;
+typedef void * CGSNotificationArg;
 
 /*! DOCUMENTATION PENDING - verify this is Leopard only! */
 CG_EXTERN CGError CGSSetLoginwindowConnection(CGSConnectionID cid) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
@@ -42,22 +44,24 @@ CG_EXTERN bool CGSMenuBarExists(CGSConnectionID cid);
 #pragma mark notifications
 
 typedef enum {
-	CGSScreenResolutionChangedEvent			= 100,
-	CGSScreenDisplayParametersChangedEvent	= 101,
-	CGSClientEnterFullscreen				= 106,
-	CGSClientExitFullscreen					= 107,
-	CGSScreenAcceleratorChangedEvent		= 121,
-	CGSWorkspaceConfigurationDisabledEvent	= 761, 	
-	CGSWorkspaceConfigurationEnabledEvent	= 762, 
-	CGSWindowDidBecomeUnoccludedEvent		= 912,
-	CGSWindowDidBecomeOccludedEvent			= 913,
-	CGSWindowWasMovedByDockEvent			= 1205,
-	CGSWindowWasResizedByDockEvent			= 1207,
-	CGSWindowDidBecomeManagedByDockEvent	= 1208,
-	CGSWorkspaceChangedEvent				= 1401,
+	kCGSScreenResolutionChangedEvent		= 100,
+	kCGSScreenDisplayParametersChangedEvent	= 101,
+	kCGSClientEnterFullscreen				= 106,
+	kCGSClientExitFullscreen				= 107,
+	kCGSScreenAcceleratorChangedEvent		= 121,
+	kCGSNotificationAppUnresponsive			= 750,
+	kCGSNotificationAppResponsive			= 751,
+	kCGSWorkspaceConfigurationDisabledEvent	= 761,
+	kCGSWorkspaceConfigurationEnabledEvent	= 762,
+	kCGSWindowDidBecomeUnoccludedEvent		= 912,
+	kCGSWindowDidBecomeOccludedEvent		= 913,
+	kCGSWindowWasMovedByDockEvent			= 1205,
+	kCGSWindowWasResizedByDockEvent			= 1207,
+	kCGSWindowDidBecomeManagedByDockEvent	= 1208,
+	kCGSWorkspaceChangedEvent				= 1401,
 } CGSConnectionNotifyEvent;
 
-typedef void (*CGConnectionNotifyProc)(int data1, int data2, int data3, void* userParameter);
+typedef void (*CGConnectionNotifyProc)(CGSNotificationType type, CGSNotificationData notificationData, size_t dataLength, CGSNotificationArg userParameter, CGSConnectionID);
 
 CG_EXTERN CGError CGSRegisterConnectionNotifyProc(CGSConnectionID cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
 CG_EXTERN CGError CGSRemoveConnectionNotifyProc(CGSConnectionID cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
