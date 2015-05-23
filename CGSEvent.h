@@ -33,21 +33,54 @@ typedef struct {
 	SInt32 _padding[4];
 } CGSEventRecordData;
 
+
 struct _CGSEventRecord {
-	CGSEventRecordVersion major;
-	CGSEventRecordVersion minor;
-	CGSByteCount length;        /* Length of complete event record */
-	CGSEventType type;          /* An event type from above */
-	CGPoint location;           /* Base coordinates (global), from upper-left */
-	CGPoint windowLocation;     /* Coordinates relative to window */
-	CGSEventRecordTime time;    /* nanoseconds since startup */
+	CGSEventRecordVersion major; /*0x0*/
+	CGSEventRecordVersion minor; /*0x2*/
+	CGSByteCount length;         /*0x4*/ /* Length of complete event record */
+	CGSEventType type;           /*0x8*/ /* An event type from above */
+	CGPoint location;            /*0x10*/ /* Base coordinates (global), from upper-left */
+	CGPoint windowLocation;      /*0x20*/ /* Coordinates relative to window */
+	CGSEventRecordTime time;     /*0x30*/ /* nanoseconds since startup */
 	CGSEventFlag flags;         /* key state flags */
 	CGWindowID window;         /* window number of assigned window */
 	CGSConnectionID connection; /* connection the event came from */
+	struct __CGEventSourceData {
+		int source;
+		unsigned int sourceUID;
+		unsigned int sourceGID;
+		unsigned int flags;
+		unsigned long long userData;
+		unsigned int sourceState;
+		unsigned short localEventSuppressionInterval;
+		unsigned char suppressionIntervalFlags;
+		unsigned char remoteMouseDragFlags;
+		unsigned long long serviceID;
+	} eventSource;
+	struct _CGEventProcess {
+		int pid;
+		unsigned int psnHi;
+		unsigned int psnLo;
+		unsigned int targetID;
+		unsigned int flags;
+	} eventProcess;
 	CGSEventRecordData data;    /* type-dependent data: 40 bytes */
+	void *ioEventData;
+	/*
+	unsigned short windowHeight;
+	unsigned short mainDisplayHeight;
+	unsigned short *unicodePayload;
+	unsigned int eventOwner;
+	unsigned char passedThrough;
+	 */
+	unsigned int _field15[4];
+	unsigned short _field16;
+	unsigned short _field17;
+	unsigned short *_field18;
 };
+
 
 typedef struct _CGSEventRecord CGSEventRecord;
 
 /*! Gets the event record for a given CGEvent.  For Carbon events, use GetEventPlatformEventRecord. */
-CG_EXTERN CGError CGEventGetEventRecord(CGEventRef event, CGSEventRecord *outRecord);
+CG_EXTERN CGError CGEventGetEventRecord(CGEventRef event, CGSEventRecord *outRecord, size_t recSize);
