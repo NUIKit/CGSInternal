@@ -88,5 +88,6 @@ CG_EXTERN CGError CGEventGetEventRecord(CGEventRef event, CGSEventRecord *outRec
 /*! Gets the main event port for the connection ID. */
 CG_EXTERN OSErr CGSGetEventPort(CGSConnectionID identifier, mach_port_t *port);
 
+/*! Getter and setter for the background event mask. */
 CG_EXTERN void CGSGetBackgroundEventMask(CGSConnectionID cid, int *outMask);
-CG_EXTERN CGError CGSSetBackgroundEventMask(CGSConnectionID cid, int mask)
+CG_EXTERN CGError CGSSetBackgroundEventMask(CGSConnectionID cid, int mask);
