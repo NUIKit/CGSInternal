@@ -84,3 +84,9 @@ typedef struct _CGSEventRecord CGSEventRecord;
 
 /*! Gets the event record for a given CGEvent.  For Carbon events, use GetEventPlatformEventRecord. */
 CG_EXTERN CGError CGEventGetEventRecord(CGEventRef event, CGSEventRecord *outRecord, size_t recSize);
+
+/*! Gets the main event port for the connection ID. */
+CG_EXTERN OSErr CGSGetEventPort(CGSConnectionID identifier, mach_port_t *port);
+
+CG_EXTERN void CGSGetBackgroundEventMask(CGSConnectionID cid, int *outMask);
+CG_EXTERN CGError CGSSetBackgroundEventMask(CGSConnectionID cid, int mask)
