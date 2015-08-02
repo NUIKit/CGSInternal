@@ -50,30 +50,177 @@ typedef enum {
 	kCGSBackingBuffered,
 } CGSBackingType;
 
-typedef enum {
-	CGSTagNone						= 0x00000000,	// No tags
+typedef enum : int {
+	// Lo bits
 	
-	// Pick one of these.
-	CGSTagExposeBehaviorStationary	= CGSTagNone, // The window is unaffected by Exposé.
-	CGSTagExposeBehaviorManaged		= 0x00000001, // The window participates in Exposé.
-	CGSTagExposeBehaviorTransient	= 0x00000002, // The window floats in spaces, does not participate in Exposé.
+	/// The window appears in the default style of OS X windows.  "Document" is most likely a
+	/// historical name.
+	kCGSDocumentWindowTagBit						= 1 << 0,
+	/// The window appears floating over other windows.  This mask is often combined with other
+	/// non-activating bits to enable floating panels.
+	kCGSFloatingWindowTagBit						= 1 << 1,
 	
-	CGSTagShowsAppBadge				= 0x00000004, // The window shows a badge when minimized into its Dock Tile.
+	/// Disables the window's badging when it is minimized into its Dock Tile.
+	kCGSDoNotShowBadgeInDockTagBit					= 1 << 2,
 	
-	CGSTagNoShadow					= 0x00000008, // No window shadow.
+	/// The window will be displayed without a shadow, and will ignore any given shadow parameters.
+	kCGSDisableShadowTagBit							= 1 << 3,
 	
-	// Pick one of these.
-	CGSTagTransparent				= 0x00000200, // Transparent to mouse clicks.
-	CGSTagOpaque					= 0x00000400, // Accepts mouse clicks.
+	/// Causes the window server to resample the window at a higher rate.  While this may lead to an
+	/// improvement in the look of the window, it can lead to performance issues.
+	kCGSHighQualityResamplingTagBit					= 1 << 4,
 	
-	CGSTagJoinsAllSpaces			= 0x00000800, // The window appears on all workspaces.
-	CGSTagIgnoresCycle				= 0x00040000, // The window does not participate in window cycling.
-	CGSTagFullScreen				= 0x00400000, // The window may go fullscreen.
-} CGSWindowTag;
+	/// The window may set the cursor when the application is not active.  Useful for windows that
+	/// present controls like editable text fields.
+	kCGSSetsCursorInBackgroundTagBit				= 1 << 5,
+	
+	/// The window continues to operate while a modal run loop has been pushed.
+	kCGSWorksWhenModalTagBit						= 1 << 6,
+	
+	/// The window is anchored to another window.
+	kCGSAttachedWindowTagBit						= 1 << 7,
 
-struct CGSWarpPoint { 
-	CGPoint localPoint; 
-	CGPoint globalPoint; 
+	/// When dragging, the window will ignore any alpha and appear 100% opaque.
+	kCGSIgnoreAlphaForDraggingTagBit				= 1 << 8,
+	
+	/// The window appears transparent to events.  Mouse events will pass through it to the next
+	/// eligible responder.  This bit or kCGSOpaqueForEventsTagBit must be exclusively set.
+	kCGSIgnoreForEventsTagBit						= 1 << 9,
+	/// The window appears opaque to events.  Mouse events will be intercepted by the window when
+	/// necessary.  This bit or kCGSIgnoreForEventsTagBit must be exclusively set.
+	kCGSOpaqueForEventsTagBit						= 1 << 10,
+	
+	/// The window appears on all workspaces regardless of where it was created.  This bit is used
+	/// for QuickLook panels.
+	kCGSOnAllWorkspacesTagBit						= 1 << 11,
+
+	///
+	kCGSPointerEventsAvoidCPSTagBit					= 1 << 12,
+	
+	///
+	kCGSKitVisibleTagBit							= 1 << 13,
+	
+	/// On application deactivation the window disappears from the window list.
+	kCGSHideOnDeactivateTagBit						= 1 << 14,
+	
+	/// When the window appears it will not bring the application to the forefront.
+	kCGSAvoidsActivationTagBit						= 1 << 15,
+	/// When the window is selected it will not bring the application to the forefront.
+	kCGSPreventsActivationTagBit					= 1 << 16,
+	
+	///
+	kCGSIgnoresOptionTagBit							= 1 << 17,
+	
+	/// The window ignores the window cycling mechanism.
+	kCGSIgnoresCycleTagBit							= 1 << 18,
+ 
+	///
+	kCGSDefersOrderingTagBit						= 1 << 19,
+	
+	///
+	kCGSDefersActivationTagBit						= 1 << 20,
+	
+	/// WindowServer will ignore all requests to order this window front.
+	kCGSIgnoreAsFrontWindowTagBit					= 1 << 21,
+	
+	/// The WindowServer will control the movement of the window on the screen using its given
+	/// dragging rects.  This enables windows to be movable even when the application stalls.
+	kCGSEnableServerSideDragTagBit					= 1 << 22,
+	
+	///
+	kCGSMouseDownEventsGrabbedTagBit				= 1 << 23,
+	
+	/// The window ignores all requests to hide.
+	kCGSDontHideTagBit								= 1 << 24,
+	
+	///
+	kCGSDontDimWindowDisplayTagBit					= 1 << 25,
+	
+	/// The window converts all pointers, no matter if they are mice or tablet pens, to its pointer
+	/// type when they enter the window.
+	kCGSInstantMouserWindowTagBit					= 1 << 26,
+	
+	/// The window appears only on active spaces, and will follow when the user changes said active
+	/// space.
+	kCGSWindowOwnerFollowsForegroundTagBit			= 1 << 27,
+	
+	///
+	kCGSActivationWindowLevelTagBit					= 1 << 28,
+	
+	/// The window brings its owning application to the forefront when it is selected.
+	kCGSBringOwningApplicationForwardTagBit			= 1 << 29,
+	
+	/// The window is allowed to appear when over login screen.
+	kCGSPermittedBeforeLoginTagBit					= 1 << 30,
+	
+	/// The window is modal.
+	kCGSModalWindowTagBit							= 1 << 31,
+
+	// Hi bits
+	
+	/// The window draws itself like the dock -the "Magic Mirror".
+	kCGSWindowIsMagicMirrorTagBit					= 1 << 1,
+	
+	///
+	kCGSFollowsUserTagBit							= 1 << 2,
+	
+	///
+	kCGSWindowDoesNotCastMirrorReflectionTagBit		= 1 << 3,
+	
+	///
+	kCGSMeshedWindowTagBit							= 1 << 4,
+	
+	/// Bit is set when CoreDrag has dragged something to the window.
+	kCGSCoreDragIsDraggingWindowTagBit				= 1 << 5,
+	
+	///
+	kCGSAvoidsCaptureTagBit							= 1 << 6,
+	
+	/// The window is ignored for expose and does not change its appearance in any way when it is
+	/// activated.
+	kCGSIgnoreForExposeTagBit						= 1 << 7,
+	
+	/// The window is hidden.
+	kCGSHiddenTagBit								= 1 << 8,
+	
+	/// The window is explicitly included in the window cycling mechanism.
+	kCGSIncludeInCycleTagBit						= 1 << 9,
+	
+	/// The window captures gesture events even when the application is not in the foreground.
+	kCGSWantGesturesInBackgroundTagBit				= 1 << 10,
+	
+	/// The window is fullscreen.
+	kCGSFullScreenTagBit							= 1 << 11,
+	
+	///
+	kCGSWindowIsMagicZoomTagBit						= 1 << 12,
+	
+	///
+	kCGSSuperStickyTagBit							= 1 << 13,
+	
+	/// The window is attached to the menu bar.  This is used for NSMenus presented by menu bar
+	/// apps.
+	kCGSAttachesToMenuBarTagBit						= 1 << 14,
+	
+	/// The window appears on the menu bar.  This is used for all menu bar items.
+	kCGSMergesWithMenuBarTagBit						= 1 << 15,
+	
+	///
+	kCGSNeverStickyTagBit							= 1 << 16,
+	
+	/// The window appears at the level of the desktop picture.
+	kCGSDesktopPictureTagBit						= 1 << 17,
+	
+	/// When the window is redrawn it moves forward.  Useful for debugging, annoying in practice.
+	kCGSOrdersForwardWhenSurfaceFlushedTagBit		= 1 << 18,
+	
+	/// 
+	kCGSDragsMovementGroupParentTagBit				= 1 << 19,
+} CGSWindowTagBit;
+
+struct CGSWarpPoint {
+	CGPoint localPoint;
+	CGPoint globalPoint;
 };
 
 /*! Switches to the next (or previous) window in the global list. */
@@ -98,8 +245,13 @@ CG_EXTERN CGError CGSSetWindowOpacity(CGSConnectionID cid, CGWindowID wid, bool 
 CG_EXTERN CGError CGSGetWindowAlpha(CGSConnectionID cid, CGWindowID wid, CGFloat *outAlpha);
 CG_EXTERN CGError CGSSetWindowAlpha(CGSConnectionID cid, CGWindowID wid, CGFloat alpha);
 
+/*! Gets and sets the window's event mask. */
 CG_EXTERN CGError CGSGetWindowEventMask(CGSConnectionID cid, CGWindowID wid, CGEventMask *mask);
 CG_EXTERN CGError CGSSetWindowEventMask(CGSConnectionID cid, CGWindowID wid, CGEventMask mask);
+
+/*! Gets and sets the window's clip shape. */
+CG_EXTERN CGError CGSCopyWindowClipShape(CGSConnectionID cid, CGWindowID wid, CGSRegionRef *outRegion);
+CG_EXTERN CGError CGSSetWindowClipShape(CGWindowID wid, CGSRegionRef shape);
 
 /*! Gets and sets the window's transform. 
  
@@ -108,8 +260,8 @@ CG_EXTERN CGError CGSSetWindowEventMask(CGSConnectionID cid, CGWindowID wid, CGE
  - Transformations involving scale may not scale upwards past the window's frame.
  - Transformations involving rotation must be followed by translation or the window will fall offscreen.
  */
-CG_EXTERN CGError CGSGetWindowTransform(CGSConnectionID ciw, CGWindowID wid, const CGAffineTransform *outTransform);
-CG_EXTERN CGError CGSSetWindowTransform(CGSConnectionID ciw, CGWindowID wid, CGAffineTransform transform);
+CG_EXTERN CGError CGSGetWindowTransform(CGSConnectionID cid, CGWindowID wid, const CGAffineTransform *outTransform);
+CG_EXTERN CGError CGSSetWindowTransform(CGSConnectionID cid, CGWindowID wid, CGAffineTransform transform);
 
 /*! Gets and sets the window's transform in place. 
 	
@@ -118,8 +270,8 @@ CG_EXTERN CGError CGSSetWindowTransform(CGSConnectionID ciw, CGWindowID wid, CGA
  - Transformations involving scale may not scale upwards past the window's frame.
  - Transformations involving rotation must be followed by translation or the window will fall offscreen.
  */
-CG_EXTERN CGError CGSGetWindowTransformAtPlacement(CGSConnectionID ciw, CGWindowID wid, const CGAffineTransform *outTransform);
-CG_EXTERN CGError CGSSetWindowTransformAtPlacement(CGSConnectionID ciw, CGWindowID wid, CGAffineTransform transform);
+CG_EXTERN CGError CGSGetWindowTransformAtPlacement(CGSConnectionID cid, CGWindowID wid, const CGAffineTransform *outTransform);
+CG_EXTERN CGError CGSSetWindowTransformAtPlacement(CGSConnectionID cid, CGWindowID wid, CGAffineTransform transform);
 
 /*! Sets the alpha of a group of windows over a period of time. Note that `duration` is in seconds. */
 CG_EXTERN CGError CGSSetWindowListAlpha(CGSConnectionID cid, const CGWindowID *widList, int widCount, CGFloat alpha, CGFloat duration);
@@ -234,7 +386,7 @@ CG_EXTERN CGError CGSGetOnScreenWindowList(CGSConnectionID cid, CGSConnectionID 
 CG_EXTERN CGError CGSNewWindow(CGSConnectionID cid, CGSBackingType backingType, CGFloat left, CGFloat top, CGSRegionRef region, CGWindowID *outWID);
 
 /*! Creates a new CGSWindow. The real window top/left is the sum of the region's top/left and the top/left parameters. */
-CG_EXTERN CGError CGSNewWindowWithOpaqueShape(CGSConnectionID cid, CGSBackingType backingType, CGFloat left, CGFloat top, CGSRegionRef region, CGSRegionRef opaqueShape, int unknown, CGSWindowTag *tags, int tagSize, CGWindowID *outWID);
+CG_EXTERN CGError CGSNewWindowWithOpaqueShape(CGSConnectionID cid, CGSBackingType backingType, CGFloat left, CGFloat top, CGSRegionRef region, CGSRegionRef opaqueShape, int unknown, CGSWindowTagBit *tags, int tagSize, CGWindowID *outWID);
 
 /*! Releases a CGSWindow. */
 CG_EXTERN CGError CGSReleaseWindow(CGSConnectionID cid, CGWindowID wid);
@@ -295,14 +447,29 @@ CG_EXTERN CGError CGSAdjustSystemStatusBarWindows(CGSConnectionID cid);
 
 #pragma mark window tags
 
-/*! Get the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize. */
-CG_EXTERN CGError CGSGetWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, size_t maxTagSize);
+/*! Get the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize.
+ 
+    Tags are represented server-side as 64-bit integers, but CoreGraphics maintains compatibility
+    with 32-bit clients by requiring 2 32-bit options tags to be specified.  The first entry in the
+    options array populates the lower 32 bits, the last populates the upper 32 bits.
+ */
+CG_EXTERN CGError CGSGetWindowTags(CGSConnectionID cid, CGWindowID wid, const CGSWindowTagBit tags[2], size_t maxTagSize);
 
-/*! Set the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize.*/
-CG_EXTERN CGError CGSSetWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, size_t maxTagSize);
+/*! Set the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize.
+ 
+    Tags are represented server-side as 64-bit integers, but CoreGraphics maintains compatibility
+    with 32-bit clients by requiring 2 32-bit options tags to be specified.  The first entry in the
+    options array populates the lower 32 bits, the last populates the upper 32 bits.
+ */
+CG_EXTERN CGError CGSSetWindowTags(CGSConnectionID cid, CGWindowID wid, const CGSWindowTagBit tags[2], size_t maxTagSize);
 
-/*! Clear the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize. */
-CG_EXTERN CGError CGSClearWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTag *tags, size_t maxTagSize);
+/*! Clear the given tags for a window.  Pass kCGSRealMaximumTagSize to maxTagSize. 
+ 
+    Tags are represented server-side as 64-bit integers, but CoreGraphics maintains compatibility
+    with 32-bit clients by requiring 2 32-bit options tags to be specified.  The first entry in the
+    options array populates the lower 32 bits, the last populates the upper 32 bits.
+ */
+CG_EXTERN CGError CGSClearWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTagBit *tags, size_t maxTagSize);
 
 #pragma mark window backdrop
 
