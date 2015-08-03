@@ -83,8 +83,9 @@ CG_EXTERN CGError CGSGetSystemDefinedCursorDataSize(CGSConnectionID cid, CGSCurs
 /*! Gets the data for a system-defined cursor. */
 CG_EXTERN CGError CGSGetSystemDefinedCursorData(CGSConnectionID cid, CGSCursorID cursor, void *outData, int *outRowBytes, CGRect *outRect, CGPoint *outHotSpot, int *outDepth, int *outComponents, int *outBitsPerComponent);
 
+/*! Gets and sets the cursor scale. The largest the Universal Access prefpane allows you to go is 4.0. */
+CG_EXTERN CGError CGSGetCursorScale(CGSConnectionID cid, CGFloat *outScale);
 CG_EXTERN CGError CGSSetCursorScale(CGSConnectionID cid, CGFloat scale);
-CG_EXTERN CGFloat CGSGetCursorScale(CGSConnectionID cid);
 
 /*! Gets the cursor 'seed'. Every time the cursor is updated, the seed changes. */
 CG_EXTERN int CGSCurrentCursorSeed(void);

@@ -25,7 +25,7 @@
 #include "CGSInternal.h"
 
 /*! DOCUMENTATION PENDING */
-CG_EXTERN CGError CGSFetchDirtyScreenRegion(CGSConnectionID cid, CGSRegionObj *outDirtyRegion);
+CG_EXTERN CGError CGSFetchDirtyScreenRegion(CGSConnectionID cid, CGSRegionRef *outDirtyRegion);
 
 /*! Is someone watching this screen? Applies to Apple's remote desktop only? */
 CG_EXTERN bool CGSIsScreenWatcherPresent(void);

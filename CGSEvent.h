@@ -8,7 +8,6 @@
 //
 
 #pragma once
-
 #include "CGSWindow.h"
 
 typedef unsigned long long      CGSUInt64;

@@ -23,7 +23,6 @@
 
 #pragma once
 #include "CGSConnection.h"
-#include "CGSWindow.h"
 
 typedef int CGSCIFilterID;
 

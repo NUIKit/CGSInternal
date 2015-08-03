@@ -24,8 +24,6 @@
 #pragma once
 #include "CGSConnection.h"
 
-typedef int CGSTransitionID;
-
 typedef enum {
 	kCGSTransitionNone,
 	kCGSTransitionFade,
