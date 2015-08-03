@@ -245,6 +245,10 @@ CG_EXTERN CGError CGSSetWindowOpacity(CGSConnectionID cid, CGWindowID wid, bool 
 CG_EXTERN CGError CGSGetWindowAlpha(CGSConnectionID cid, CGWindowID wid, CGFloat *outAlpha);
 CG_EXTERN CGError CGSSetWindowAlpha(CGSConnectionID cid, CGWindowID wid, CGFloat alpha);
 
+/*! Gets and sets the window's color space. */
+CG_EXTERN CGError CGSCopyWindowColorSpace(CGSConnectionID cid, CGWindowID wid, CGColorSpaceRef *outColorSpace);
+CG_EXTERN CGError CGSSetWindowColorSpace(CGSConnectionID cid, CGWindowID wid, CGColorSpaceRef colorSpace);
+
 /*! Gets and sets the window's event mask. */
 CG_EXTERN CGError CGSGetWindowEventMask(CGSConnectionID cid, CGWindowID wid, CGEventMask *mask);
 CG_EXTERN CGError CGSSetWindowEventMask(CGSConnectionID cid, CGWindowID wid, CGEventMask mask);
@@ -469,7 +473,7 @@ CG_EXTERN CGError CGSSetWindowTags(CGSConnectionID cid, CGWindowID wid, const CG
     with 32-bit clients by requiring 2 32-bit options tags to be specified.  The first entry in the
     options array populates the lower 32 bits, the last populates the upper 32 bits.
  */
-CG_EXTERN CGError CGSClearWindowTags(CGSConnectionID cid, CGWindowID wid, CGSWindowTagBit *tags, size_t maxTagSize);
+CG_EXTERN CGError CGSClearWindowTags(CGSConnectionID cid, CGWindowID wid, const CGSWindowTagBit tags[2], size_t maxTagSize);
 
 #pragma mark window backdrop
 
