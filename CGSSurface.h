@@ -8,8 +8,9 @@
 //
 
 #pragma once
-#include "Compatability.h"
 #include "CGSWindow.h"
+
+typedef int CGSSurfaceID;
 
 /*! Adds a drawable surface to a window. */
 CG_EXTERN CGError CGSAddSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID *outSID);
@@ -18,7 +19,7 @@ CG_EXTERN CGError CGSAddSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceI
 CG_EXTERN CGError CGSRemoveSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID sid);
 
 /*! Sets the bounds of a surface. */
-CG_EXTERN CGError CGSSetSurfaceBounds(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID sid, CGFloat xOrg, CGFloat yOrg, CGFloat width, CGFloat height);
+CG_EXTERN CGError CGSSetSurfaceBounds(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID sid, CGRect bounds);
 
 /*! Gets the smallest rectangle a surface's frame fits in. */
 CG_EXTERN CGError CGSGetSurfaceBounds(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID sid, CGFloat *bounds);
@@ -33,6 +34,11 @@ CG_EXTERN CGError CGSGetSurfaceList(CGSConnectionID cid, CGWindowID wid, int cou
 CG_EXTERN CGError CGSOrderSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID surface, CGSSurfaceID otherSurface, int place);
 
 /*! Flushes a surface to its window. */
-CG_EXTERN CGError CGSFlushSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID, int param);
+CG_EXTERN CGError CGSFlushSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID surface, int param);
 
+/*! Sets a surface's color space. */
+CG_EXTERN CGError CGSSetSurfaceColorSpace(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID surface, CGColorSpaceRef colorSpace);
+
+/*! Tunes a number of properties the window server uses when rendering a layer-backed surface. */
+CG_EXTERN CGError CGSSetSurfaceLayerBackingOptions(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID surface, CGFloat flattenDelay, CGFloat decelerationDelay, CGFloat discardDelay);
 
