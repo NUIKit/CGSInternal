@@ -28,10 +28,6 @@
 CG_EXTERN bool CGSDisplayIsZoomed(void);
 CG_EXTERN CGError CGSIsZoomed(CGSConnectionID cid, bool *outIsZoomed);
 
-/*! Gets and sets the cursor scale. The largest the Universal Access prefpane allows you to go is 4.0. */
-CG_EXTERN CGError CGSGetCursorScale(CGSConnectionID cid, CGFloat *outScale);
-CG_EXTERN CGError CGSSetCursorScale(CGSConnectionID cid, CGFloat scale);
-
 /*! Gets and sets the state of screen inversion. */
 CG_EXTERN bool CGDisplayUsesInvertedPolarity(void);
 CG_EXTERN void CGDisplaySetInvertedPolarity(bool invertedPolarity);
