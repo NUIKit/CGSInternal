@@ -40,6 +40,7 @@
 #include "CGSSession.h"
 #include "CGSSpace.h"
 #include "CGSSurface.h"
+#include "CGSTile.h"
 #include "CGSTransitions.h"
 #include "CGSWindow.h"
 #include "CGSWorkspace.h"
