@@ -59,12 +59,15 @@ typedef enum {
 	kCGSWindowWasMovedByDockEvent			= 1205,
 	kCGSWindowWasResizedByDockEvent			= 1207,
 	kCGSWindowDidBecomeManagedByDockEvent	= 1208,
+	kCGSWindowTileSpaceBeganLiveResize		= 1312,
+	kCGSWindowTileSpaceEndedLiveResize		= 1313,
+	kCGSWindowTileSpaceDidResize			= 1314,
 	kCGSWorkspaceChangedEvent				= 1401,
 } CGSConnectionNotifyEvent;
 
 typedef enum {
 	kCGSNotificationDebugOptionsChanged = 200,
-	
+
 	kCGSNotificationMouseMoved = 715,
 	
 	kCGSNotificationTrackingRegionEntered = 718,
@@ -85,7 +88,7 @@ typedef enum {
 	// 764 - hotkey ends editing
 	
 	// 765, 766 seem to be about the hotkey state (all disabled, etc)
-	
+
 	kCGSNotificationWorkspaceChanged = 1401,
 	
 	kCGSNotificationTransitionEnded = 1700,
