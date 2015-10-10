@@ -35,6 +35,14 @@ typedef enum {
 	KCGSAllVisibleSpacesMask = CGSSpaceVisible | kCGSAllSpacesMask,
 } CGSSpaceMask;
 
+/* Creates a new space with the given options dictionary.  Valid keys are 
+
+	"type": CFNumberRef
+	"uuid": CFStringRef
+ */
+CG_EXTERN CGSSpaceID CGSSpaceCreate(CGSConnectionID cid, void *null, CFDictionaryRef options);
+CG_EXTERN void CGSSpaceDestroy(CGSConnectionID cid, CGSSpaceID sid);
+
 /* Gets the ID of the space currently visible to the user. */ 
 CG_EXTERN CGSSpaceID CGSGetActiveSpace(CGSConnectionID cid);
 
@@ -53,6 +61,8 @@ CG_EXTERN CGSRegionRef CGSSpaceCopyShape(CGSConnectionID cid, CGSSpaceID space);
 /* Connection-local data in a given space. */
 CG_EXTERN CFDictionaryRef CGSSpaceCopyValues(CGSConnectionID cid, CGSSpaceID space);
 CG_EXTERN CGError CGSSpaceSetValues(CGSConnectionID cid, CGSSpaceID sid, CFDictionaryRef values);
+CG_EXTERN CGError CGSSpaceRemoveValuesForKeys(CGSConnectionID cid, CGSSpaceID sid, CFArrayRef values);
+
 
 /* Copies and returns a region the space occupies.  You are responsible for releasing the region object. */
 CG_EXTERN CGSRegionRef CGSSpaceCopyManagedShape(CGSConnectionID cid, CGSSpaceID sid);
@@ -85,4 +95,6 @@ CG_EXTERN CFStringRef kCGSPackagesMainDisplayIdentifier;
 
 /* Changes the active space for a given display. */
 CG_EXTERN void CGSManagedDisplaySetCurrentSpace(CGSConnectionID cid, CFStringRef display, CGSSpaceID space);
+
+
 
