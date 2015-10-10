@@ -4,6 +4,7 @@
 //
 //  Created by Robert Widmann on 10/9/15.
 //  Copyright © 2015 CodaFi. All rights reserved.
+//  Released under the MIT license.
 //
 
 #pragma once

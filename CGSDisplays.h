@@ -22,7 +22,15 @@
  *
  */
 
-#pragma once
+//
+//  Updated by Robert Widmann.
+//  Copyright © 2015 CodaFi. All rights reserved.
+//  Released under the MIT license.
+//
+
+#ifndef CGS_DISPLAYS_INTERNAL_H
+#define CGS_DISPLAYS_INTERNAL_H
+
 #include "CGSRegion.h"
 
 typedef enum {
@@ -44,59 +52,76 @@ typedef struct {
 
 typedef int CGSDisplayMode;
 
-/*! Gets the main display. */
+
+/// Gets the main display.
 CG_EXTERN CGDirectDisplayID CGSMainDisplayID(void);
 
-/*! Gets the number of displays known to the system. */
+
+#pragma mark - Display Properties
+
+
+/// Gets the number of displays known to the system.
 CG_EXTERN uint32_t CGSGetNumberOfDisplays(void);
 
-/*! Begins a new display configuration transacation. */
-CG_EXTERN CGDisplayErr CGSBeginDisplayConfiguration(CGDisplayConfigRef *config);
-
-/*! Sets the origin of a display relative to the main display. The main display is at (0, 0) and contains the menubar. */
-CG_EXTERN CGDisplayErr CGSConfigureDisplayOrigin(CGDisplayConfigRef config, CGDirectDisplayID display, int32_t x, int32_t y);
-
-/*! Applies the configuration changes made in this transaction. */
-CG_EXTERN CGDisplayErr CGSCompleteDisplayConfiguration(CGDisplayConfigRef config);
-
-CG_EXTERN CGError CGSDisplayStatusQuery(CGDirectDisplayID display, CGSDisplayQuery query);
-
-/*! Drops the configuration changes made in this transaction. */
-CG_EXTERN CGDisplayErr CGSCancelDisplayConfiguration(CGDisplayConfigRef config);
-
-/*! Gets a list of on line displays */
-CG_EXTERN CGDisplayErr CGSGetOnlineDisplayList(CGDisplayCount maxDisplays, CGDirectDisplayID *displays, CGDisplayCount *outDisplayCount);
-
-/*! Gets a list of active displays */
-CG_EXTERN CGDisplayErr CGSGetActiveDisplayList(CGDisplayCount maxDisplays, CGDirectDisplayID *displays, CGDisplayCount *outDisplayCount);
-
-/*! Gets the depth of a display. */
+/// Gets the depth of a display.
 CG_EXTERN CGError CGSGetDisplayDepth(CGDirectDisplayID display, int *outDepth);
 
-/*! Gets the displays at a point. Note that multiple displays can have the same point - think mirroring. */
+/// Gets the displays at a point. Note that multiple displays can have the same point - think mirroring.
 CG_EXTERN CGError CGSGetDisplaysWithPoint(const CGPoint *point, int maxDisplayCount, CGDirectDisplayID *outDisplays, int *outDisplayCount);
 
-/*! Gets the displays which contain a rect. Note that multiple displays can have the same bounds - think mirroring. */
+/// Gets the displays which contain a rect. Note that multiple displays can have the same bounds - think mirroring.
 CG_EXTERN CGError CGSGetDisplaysWithRect(const CGRect *point, int maxDisplayCount, CGDirectDisplayID *outDisplays, int *outDisplayCount);
 
-/*! Gets the bounds for the display. Note that multiple displays can have the same bounds - think mirroring. */
+/// Gets the bounds for the display. Note that multiple displays can have the same bounds - think mirroring.
 CG_EXTERN CGError CGSGetDisplayRegion(CGDirectDisplayID display, CGSRegionRef *outRegion);
 CG_EXTERN CGError CGSGetDisplayBounds(CGDirectDisplayID display, CGRect *outRect);
 
-/*! Gets the number of bytes per row. */
+/// Gets the number of bytes per row.
 CG_EXTERN CGError CGSGetDisplayRowBytes(CGDirectDisplayID display, int *outRowBytes);
 
-/* Returns an array of dictionaries describing the spaces each screen contains. */
+/// Returns an array of dictionaries describing the spaces each screen contains.
 CG_EXTERN CFArrayRef CGSCopyManagedDisplaySpaces(CGSConnectionID cid);
 
-/* Gets the current display mode for the display. */
+/// Gets the current display mode for the display.
 CG_EXTERN CGError CGSGetCurrentDisplayMode(CGDirectDisplayID display, int *modeNum);
 
-/* Gets the number of possible display modes for the display. */
+/// Gets the number of possible display modes for the display.
 CG_EXTERN CGError CGSGetNumberOfDisplayModes(CGDirectDisplayID display, int *nModes);
 
-/* Gets a description of the mode of the display. */
+/// Gets a description of the mode of the display.
 CG_EXTERN CGError CGSGetDisplayModeDescriptionOfLength(CGDirectDisplayID display, int idx, CGSDisplayModeDescription *desc, int length);
 
-/* Sets a display's configuration mode. */
+/// Sets a display's configuration mode.
 CG_EXTERN CGError CGSConfigureDisplayMode(CGDisplayConfigRef config, CGDirectDisplayID display, int modeNum);
+
+/// Gets a list of on line displays */
+CG_EXTERN CGDisplayErr CGSGetOnlineDisplayList(CGDisplayCount maxDisplays, CGDirectDisplayID *displays, CGDisplayCount *outDisplayCount);
+
+/// Gets a list of active displays */
+CG_EXTERN CGDisplayErr CGSGetActiveDisplayList(CGDisplayCount maxDisplays, CGDirectDisplayID *displays, CGDisplayCount *outDisplayCount);
+
+
+#pragma mark - Display Configuration
+
+
+/// Begins a new display configuration transacation.
+CG_EXTERN CGDisplayErr CGSBeginDisplayConfiguration(CGDisplayConfigRef *config);
+
+/// Sets the origin of a display relative to the main display. The main display is at (0, 0) and contains the menubar.
+CG_EXTERN CGDisplayErr CGSConfigureDisplayOrigin(CGDisplayConfigRef config, CGDirectDisplayID display, int32_t x, int32_t y);
+
+/// Applies the configuration changes made in this transaction.
+CG_EXTERN CGDisplayErr CGSCompleteDisplayConfiguration(CGDisplayConfigRef config);
+
+/// Drops the configuration changes made in this transaction.
+CG_EXTERN CGDisplayErr CGSCancelDisplayConfiguration(CGDisplayConfigRef config);
+
+
+#pragma mark - Querying for Display Status
+
+
+/// Queries the Window Server about the status of the query.
+CG_EXTERN CGError CGSDisplayStatusQuery(CGDirectDisplayID display, CGSDisplayQuery query);
+
+
+#endif CGS_DISPLAYS_INTERNAL_H /* CGS_DISPLAYS_INTERNAL_H */

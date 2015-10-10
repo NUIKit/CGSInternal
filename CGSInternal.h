@@ -21,7 +21,15 @@
  *
  */
 
-#pragma once
+//
+//  Updated by Robert Widmann.
+//  Copyright © 2015 CodaFi. All rights reserved.
+//  Released under the MIT license.
+//
+
+#ifndef CGS_INTERNAL_API_H
+#define CGS_INTERNAL_API_H
+
 #include <Carbon/Carbon.h>
 #include <ApplicationServices/ApplicationServices.h>
 
@@ -44,3 +52,5 @@
 #include "CGSTransitions.h"
 #include "CGSWindow.h"
 #include "CGSWorkspace.h"
+
+#endif CGS_INTERNAL_API_H /* CGS_INTERNAL_API_H */

@@ -21,26 +21,45 @@
  *
  */
 
-#pragma once
+//
+//  Updated by Robert Widmann.
+//  Copyright © 2015 CodaFi. All rights reserved.
+//  Released under the MIT license.
+//
+
+#ifndef CGS_CIFILTER_INTERNAL_H
+#define CGS_CIFILTER_INTERNAL_H
+
 #include "CGSConnection.h"
 
-typedef int CGSCIFilterID;
+typedef enum {
+	kCGWindowFilterUnderlay		= 1,
+	kCGWindowFilterDock			= 0x3001,
+} CGSCIFilterID;
 
-/*! Creates a new CGSCIFilter from a filter name. These names are the same as you'd usually use for CIFilters. */
+/// Creates a new filter from a filter name.
+///
+/// Any valid CIFilter names are valid names for this function.
 CG_EXTERN CGError CGSNewCIFilterByName(CGSConnectionID cid, CFStringRef filterName, CGSCIFilterID *outFilter);
 
-/*! Adds or removes a CIFilter to a window. Flags are currently unknown (the Dock uses 0x3001).
-	Note: This stuff is VERY crashy under 10.4.10 - make sure to remove the filter before minimizing the window or closing it. */
+/// Inserts the given filter into the window.
+///
+/// The values for the `flags` field is currently unknown.
 CG_EXTERN CGError CGSAddWindowFilter(CGSConnectionID cid, CGWindowID wid, CGSCIFilterID filter, int flags);
+
+/// Removes the given filter from the window.
 CG_EXTERN CGError CGSRemoveWindowFilter(CGSConnectionID cid, CGWindowID wid, CGSCIFilterID filter);
 
-enum {
-	kCGWindowFilterUnderlay = 1,
-	kCGWindowFilterDock = 0x3001,
-};
-
-/*! Loads a set of values into the CIFilter. */
+/// Invokes `-[CIFilter setValue:forKey:]` on each entry in the dictionary for the window's filter.
+///
+/// The Window Server only checks for the existence of
+///
+///    inputPhase
+///    inputPhase0
+///    inputPhase1
 CG_EXTERN CGError CGSSetCIFilterValuesFromDictionary(CGSConnectionID cid, CGSCIFilterID filter, CFDictionaryRef filterValues);
 
-/*! Releases a CIFilter. */
+/// Releases a window's CIFilter.
 CG_EXTERN CGError CGSReleaseCIFilter(CGSConnectionID cid, CGSCIFilterID filter);
+
+#endif CGS_CIFILTER_INTERNAL_H /* CGS_CIFILTER_INTERNAL_H */

@@ -7,26 +7,18 @@
 //  Released under the MIT license.
 //
 
-#pragma once
+#ifndef CGS_EVENT_INTERNAL_H
+#define CGS_EVENT_INTERNAL_H
+
 #include "CGSWindow.h"
 
-typedef unsigned long long      CGSUInt64;
-typedef long long               CGSInt64;
-typedef unsigned long           CGSUInt32;
-typedef long                    CGSInt32;
-typedef unsigned short          CGSUInt16;
-typedef short                   CGSInt16;
-typedef unsigned char           CGSUInt8;
-typedef char                    CGSInt8;
-typedef float                   CGSFloat32;
-
-typedef CGSUInt32 CGSByteCount;
-typedef CGSUInt16 CGSEventRecordVersion;
-typedef CGSUInt64 CGSEventRecordTime;  /* nanosecond timer */
+typedef unsigned long CGSByteCount;
+typedef unsigned short CGSEventRecordVersion;
+typedef unsigned long long CGSEventRecordTime;  /* nanosecond timer */
 typedef unsigned long CGSEventFlag;
-typedef CGSUInt32  CGSError;
+typedef unsigned long  CGSError;
 
-typedef enum : CGSUInt32 {
+typedef enum : unsigned int {
 	kCGSEventNotificationNullEvent = 0,
 
 	kCGSEventNotificationLeftMouseDown,
@@ -200,12 +192,16 @@ typedef struct _CGSEventRecord {
 	unsigned short *_field18;
 } CGSEventRecord;
 
-/*! Gets the event record for a given CGEvent.  For Carbon events, use GetEventPlatformEventRecord. */
+/// Gets the event record for a given `CGEventRef`.
+///
+/// For Carbon events, use `GetEventPlatformEventRecord`.
 CG_EXTERN CGError CGEventGetEventRecord(CGEventRef event, CGSEventRecord *outRecord, size_t recSize);
 
-/*! Gets the main event port for the connection ID. */
+/// Gets the main event port for the connection ID.
 CG_EXTERN OSErr CGSGetEventPort(CGSConnectionID identifier, mach_port_t *port);
 
-/*! Getter and setter for the background event mask. */
+/// Getter and setter for the background event mask.
 CG_EXTERN void CGSGetBackgroundEventMask(CGSConnectionID cid, int *outMask);
 CG_EXTERN CGError CGSSetBackgroundEventMask(CGSConnectionID cid, int mask);
+
+#endif CGS_EVENT_INTERNAL_H /* CGS_EVENT_INTERNAL_H */

@@ -21,20 +21,54 @@
  *
  */
 
-#pragma once
+//
+//  Updated by Robert Widmann.
+//  Copyright © 2015 CodaFi. All rights reserved.
+//  Released under the MIT license.
+//
+
+#ifndef CGS_ACCESSIBILITY_INTERNAL_H
+#define CGS_ACCESSIBILITY_INTERNAL_H
+
 #include "CGSConnection.h"
 
-/*! Gets whether the display is zoomed. I'm not sure why there's two calls that appear to do the same thing - I think CGSIsZoomed calls through to CGSDisplayIsZoomed. */
-CG_EXTERN bool CGSDisplayIsZoomed(void);
+
+#pragma mark - Display Zoom
+
+
+/// Gets whether the display is zoomed.
 CG_EXTERN CGError CGSIsZoomed(CGSConnectionID cid, bool *outIsZoomed);
 
-/*! Gets and sets the state of screen inversion. */
+
+#pragma mark - Invert Colors
+
+
+/// Gets the preference value for inverted colors on the current display.
 CG_EXTERN bool CGDisplayUsesInvertedPolarity(void);
+
+/// Sets the preference value for the state of the inverted colors on the current display.  This
+/// preference value is monitored by the system, and updating it causes a fairly immediate change
+/// in the screen's colors.
+///
+/// Internally, this sets and synchronizes `DisplayUseInvertedPolarity` in the
+/// "com.apple.CoreGraphics" preferences bundle.
 CG_EXTERN void CGDisplaySetInvertedPolarity(bool invertedPolarity);
 
-/*! Gets and sets whether the screen is grayscale. */
+
+#pragma mark - Use Grayscale
+
+
+/// Gets whether the screen forces all drawing as grayscale.
 CG_EXTERN bool CGDisplayUsesForceToGray(void);
+
+/// Sets whether the screen forces all drawing as grayscale.
 CG_EXTERN void CGDisplayForceToGray(bool forceToGray);
 
-/*! Sets the display's contrast. There doesn't seem to be a get version of this function. */
+
+#pragma mark - Increase Contrast
+
+
+/// Sets the display's contrast. There doesn't seem to be a get version of this function.
 CG_EXTERN CGError CGSSetDisplayContrast(CGFloat contrast);
+
+#endif CGS_ACCESSIBILITY_INTERNAL_H /* CGS_ACCESSIBILITY_INTERNAL_H */
