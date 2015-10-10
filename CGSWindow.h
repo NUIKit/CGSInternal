@@ -216,6 +216,9 @@ typedef enum : int {
 	
 	/// 
 	kCGSDragsMovementGroupParentTagBit				= 1 << 19,
+	kCGSNeverFlattenSurfacesDuringSwipesTagBit		= 1 << 20,
+	kCGSFullScreenCapableTagBit						= 1 << 21,
+	kCGSFullScreenTileCapableTagBit					= 1 << 22,
 } CGSWindowTagBit;
 
 struct CGSWarpPoint {
