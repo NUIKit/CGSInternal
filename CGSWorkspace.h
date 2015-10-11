@@ -21,29 +21,37 @@
  *
  */
 
-#pragma once
+//
+//  Updated by Robert Widmann.
+//  Copyright © 2015 CodaFi. All rights reserved.
+//  Released under the MIT license.
+//
+
+#ifndef CGS_WORKSPACE_INTERNAL_H
+#define CGS_WORKSPACE_INTERNAL_H
+
 #include "CGSConnection.h"
 #include "CGSWindow.h"
 #include "CGSTransitions.h"
 
 typedef unsigned int CGSWorkspaceID;
 
-/*! The space id given when we're switching spaces. */
+/// The space ID given when we're switching spaces.
 static const CGSWorkspaceID kCGSTransitioningWorkspaceID = 65538;
 
-
-
-/*! Gets and sets the current workspace. */
+/// Gets and sets the current workspace.
 CG_EXTERN CGError CGSGetWorkspace(CGSConnectionID cid, CGSWorkspaceID *outWorkspace);
 CG_EXTERN CGError CGSSetWorkspace(CGSConnectionID cid, CGSWorkspaceID workspace);
 
-/*! Transitions to a workspace asynchronously. Note that `duration` is in seconds. */
+/// Transitions to a workspace asynchronously. Note that `duration` is in seconds.
 CG_EXTERN CGError CGSSetWorkspaceWithTransition(CGSConnectionID cid, CGSWorkspaceID workspace, CGSTransitionType transition, CGSTransitionFlags options, CGFloat duration);
 
-/*! Gets and sets the workspace for a window. */
+/// Gets and sets the workspace for a window.
 CG_EXTERN CGError CGSGetWindowWorkspace(CGSConnectionID cid, CGWindowID wid, CGSWorkspaceID *outWorkspace);
 CG_EXTERN CGError CGSSetWindowWorkspace(CGSConnectionID cid, CGWindowID wid, CGSWorkspaceID workspace);
 
-/*! Gets the number of windows in the workspace. */
+/// Gets the number of windows in the workspace.
 CG_EXTERN CGError CGSGetWorkspaceWindowCount(CGSConnectionID cid, int workspaceNumber, int *outCount);
 CG_EXTERN CGError CGSGetWorkspaceWindowList(CGSConnectionID cid, int workspaceNumber, int count, CGWindowID *list, int *outCount);
+
+#endif

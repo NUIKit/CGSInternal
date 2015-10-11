@@ -204,4 +204,17 @@ CG_EXTERN OSErr CGSGetEventPort(CGSConnectionID identifier, mach_port_t *port);
 CG_EXTERN void CGSGetBackgroundEventMask(CGSConnectionID cid, int *outMask);
 CG_EXTERN CGError CGSSetBackgroundEventMask(CGSConnectionID cid, int mask);
 
-#endif CGS_EVENT_INTERNAL_H /* CGS_EVENT_INTERNAL_H */
+
+/// Returns	`True` if the application has been deemed unresponsive for a certain amount of time.
+CG_EXTERN bool CGSEventIsAppUnresponsive(CGSConnectionID cid, const ProcessSerialNumber *psn);
+
+/// Sets the amount of time it takes for an application to be considered unresponsive.
+CG_EXTERN CGError CGSEventSetAppIsUnresponsiveNotificationTimeout(CGSConnectionID cid, double theTime);
+
+#pragma mark input
+
+// Gets and sets the status of secure input. When secure input is enabled, keyloggers, etc are harder to do.
+CG_EXTERN bool CGSIsSecureEventInputSet(void);
+CG_EXTERN CGError CGSSetSecureEventInput(CGSConnectionID cid, bool useSecureInput);
+
+#endif /* CGS_EVENT_INTERNAL_H */

@@ -62,4 +62,4 @@ CG_EXTERN CGError CGSSetCIFilterValuesFromDictionary(CGSConnectionID cid, CGSCIF
 /// Releases a window's CIFilter.
 CG_EXTERN CGError CGSReleaseCIFilter(CGSConnectionID cid, CGSCIFilterID filter);
 
-#endif CGS_CIFILTER_INTERNAL_H /* CGS_CIFILTER_INTERNAL_H */
+#endif /* CGS_CIFILTER_INTERNAL_H */

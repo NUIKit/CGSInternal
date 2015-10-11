@@ -71,4 +71,4 @@ CG_EXTERN void CGDisplayForceToGray(bool forceToGray);
 /// Sets the display's contrast. There doesn't seem to be a get version of this function.
 CG_EXTERN CGError CGSSetDisplayContrast(CGFloat contrast);
 
-#endif CGS_ACCESSIBILITY_INTERNAL_H /* CGS_ACCESSIBILITY_INTERNAL_H */
+#endif /* CGS_ACCESSIBILITY_INTERNAL_H */

@@ -7,21 +7,40 @@
 //  Released under the MIT license.
 //
 
-#pragma once
+#ifndef CGS_TILE_INTERNAL_H
+#define CGS_TILE_INTERNAL_H
+
 #include "CGSSurface.h"
 
 typedef size_t CGSTileID;
 
+
+#pragma mark - Proposed Tile Properties
+
+
 /// Returns true if the space ID and connection admit the creation of a new tile.
 CG_EXTERN bool CGSSpaceCanCreateTile(CGSConnectionID cid, CGSSpaceID sid) AVAILABLE_MAC_OS_X_VERSION_10_11_AND_LATER;
 
+/// Returns the recommended size for a tile that could be added to the given space.
 CG_EXTERN CGError CGSSpaceGetSizeForProposedTile(CGSConnectionID cid, CGSSpaceID sid, CGSize *outSize) AVAILABLE_MAC_OS_X_VERSION_10_11_AND_LATER;
+
+
+#pragma mark - Tile Creation
+
 
 /// Creates a new tile ID in the given space.
 CG_EXTERN CGError CGSSpaceCreateTile(CGSConnectionID cid, CGSSpaceID sid, CGSTileID *outTID) AVAILABLE_MAC_OS_X_VERSION_10_11_AND_LATER;
 
+
+#pragma mark - Tile Spaces
+
+
 /// Returns an array of CFNumberRefs of CGSSpaceIDs.
 CG_EXTERN CFArrayRef CGSSpaceCopyTileSpaces(CGSConnectionID cid, CGSSpaceID sid) AVAILABLE_MAC_OS_X_VERSION_10_11_AND_LATER;
+
+
+#pragma mark - Tile Properties
+
 
 /// Returns the size of the inter-tile spacing between tiles in the given space ID.
 CG_EXTERN CGFloat CGSSpaceGetInterTileSpacing(CGSConnectionID cid, CGSSpaceID sid) AVAILABLE_MAC_OS_X_VERSION_10_11_AND_LATER;
@@ -50,3 +69,5 @@ CG_EXTERN CGSSpaceID CGSTileEvictionRecordGetManagedSpaceID(CGSConnectionID owne
 CG_EXTERN CGSSpaceID CGSTileOwnerChangeRecordGetNewOwner(CGSConnectionID ownerID) AVAILABLE_MAC_OS_X_VERSION_10_11_AND_LATER;
 ///
 CG_EXTERN CGSSpaceID CGSTileOwnerChangeRecordGetOldOwner(CGSConnectionID ownerID) AVAILABLE_MAC_OS_X_VERSION_10_11_AND_LATER;
+
+#endif /* CGS_TILE_INTERNAL_H */

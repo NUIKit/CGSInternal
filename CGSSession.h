@@ -21,30 +21,44 @@
  *
  */
 
-#pragma once
+//
+//  Updated by Robert Widmann.
+//  Copyright © 2015 CodaFi. All rights reserved.
+//  Released under the MIT license.
+//
+
+#ifndef CGS_SESSION_INTERNAL_H
+#define CGS_SESSION_INTERNAL_H
+
 #include "CGSInternal.h"
 
 typedef int CGSSessionID;
 
-/*! Gets information about the current login session. Keys as of 10.4:
-	kCGSSessionGroupIDKey
-	kCGSSessionOnConsoleKey
-	kCGSSessionIDKey
-	kCGSSessionUserNameKey
-	kCGSessionLoginDoneKey
-	kCGSessionLongUserNameKey
-	kCGSSessionSystemSafeBoot
-	kCGSSessionLoginwindowSafeLogin
-	kCGSSessionConsoleSetKey
-	kCGSSessionUserIDKey
- */
-CG_EXTERN CFDictionaryRef CGSCopyCurrentSessionDictionary(void);
-
-/*! Creates a new "blank" login session. Switches to the LoginWindow. This does NOT check to see if fast user switching is enabled! */
+/// Creates a new "blank" login session.
+///
+/// Switches to the LoginWindow. This does NOT check to see if fast user switching is enabled!
 CG_EXTERN CGError CGSCreateLoginSession(CGSSessionID *outSession);
 
-/*! Releases a session. */
+/// Releases a session.
 CG_EXTERN CGError CGSReleaseSession(CGSSessionID session);
 
-/*! Gets a list of sessions. Each session dictionary is in the format returned by `CGSCopyCurrentSessionDictionary`. */
+/// Gets information about the current login session.
+///
+/// As of OS X 10.6, the following keys appear in this dictionary:
+///
+///     kCGSSessionGroupIDKey		: CFNumberRef
+///     kCGSSessionOnConsoleKey		: CFBooleanRef
+///     kCGSSessionIDKey			: CFNumberRef
+///     kCGSSessionUserNameKey		: CFStringRef
+///     kCGSessionLongUserNameKey	: CFStringRef
+///     kCGSessionLoginDoneKey		: CFBooleanRef
+///     kCGSSessionUserIDKey		: CFNumberRef
+///     kCGSSessionSecureInputPID	: CFNumberRef
+CG_EXTERN CFDictionaryRef CGSCopyCurrentSessionDictionary(void);
+
+/// Gets a list of session dictionaries.
+///
+/// Each session dictionary is in the format returned by `CGSCopyCurrentSessionDictionary`.
 CG_EXTERN CFArrayRef CGSCopySessionList(void);
+
+#endif /* CGS_SESSION_INTERNAL_H */

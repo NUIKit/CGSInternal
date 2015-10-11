@@ -53,4 +53,4 @@
 #include "CGSWindow.h"
 #include "CGSWorkspace.h"
 
-#endif CGS_INTERNAL_API_H /* CGS_INTERNAL_API_H */
+#endif /* CGS_INTERNAL_API_H */

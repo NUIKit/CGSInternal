@@ -21,35 +21,29 @@
  *
  */
 
-#pragma once
-#include "CGSInternal.h"
+//
+//  Updated by Robert Widmann.
+//  Copyright © 2015 CodaFi. All rights reserved.
+//  Released under the MIT license.
+//
 
-/*! DOCUMENTATION PENDING */
-CG_EXTERN CGError CGSFetchDirtyScreenRegion(CGSConnectionID cid, CGSRegionRef *outDirtyRegion);
+#ifndef CGS_MISC_INTERNAL_H
+#define CGS_MISC_INTERNAL_H
 
-/*! Is someone watching this screen? Applies to Apple's remote desktop only? */
+#include "CGSConnection.h"
+
+/// Is someone watching this screen? Applies to Apple's remote desktop only?
 CG_EXTERN bool CGSIsScreenWatcherPresent(void);
 
-/*! Returns	`True` if the application has been deemed unresponsive for a certain amount of time. */
-CG_EXTERN bool CGSEventIsAppUnresponsive(CGSConnectionID cid, const ProcessSerialNumber *psn);
+#pragma mark - Error Logging
 
-/*! Sets the amount of time it takes for an application to be considered unresponsive. */
-CG_EXTERN CGError CGSEventSetAppIsUnresponsiveNotificationTimeout(CGSConnectionID cid, double theTime);
-
-/*! Sets the cursor position. */
-CG_EXTERN CGError CGSWarpCursorPosition(CGSConnectionID cid, CGFloat x, CGFloat y);
-
-#pragma mark errors
-/* Logs an error and returns `err`. */
+/// Logs an error and returns `err`.
 CG_EXTERN CGError CGSGlobalError(CGError err, const char *msg);
 
-/* Logs an error and returns `err`. */
+/// Logs an error and returns `err`.
 CG_EXTERN CGError CGSGlobalErrorv(CGError err, const char *msg, ...);
 
-/*! Gets the error message for an error code. */
+/// Gets the error message for an error code.
 CG_EXTERN char *CGSErrorString(CGError error);
 
-#pragma mark input
-/*! Gets and sets the status of secure input. When secure input is enabled, keyloggers, etc are harder to do. */
-CG_EXTERN bool CGSIsSecureEventInputSet(void);
-CG_EXTERN CGError CGSSetSecureEventInput(CGSConnectionID cid, bool useSecureInput);
+#endif /* CGS_MISC_INTERNAL_H */

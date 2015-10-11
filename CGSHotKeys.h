@@ -197,5 +197,4 @@ CG_EXTERN BOOL CGSIsHotKeyEnabled(CGSConnectionID cid, int uid);
 /// Sets whether the hot key represented by the given UID is enabled.
 CG_EXTERN void CGSSetHotKeyEnabled(CGSConnectionID cid, int uid, bool enabled);
 
-
-#endif CGS_HOTKEYS_INTERNAL_H /* CGS_HOTKEYS_INTERNAL_H */
+#endif /* CGS_HOTKEYS_INTERNAL_H */

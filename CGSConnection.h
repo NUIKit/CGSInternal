@@ -30,7 +30,7 @@
 #ifndef CGS_CONNECTION_INTERNAL_H
 #define CGS_CONNECTION_INTERNAL_H
 
-/// The type of connections to the window server.
+/// The type of connections to the Window Server.
 ///
 /// Every application is given a singular connection ID through which it can receieve and manipulate
 /// values, state, notifications, events, etc. in the Window Server.  It
@@ -47,7 +47,7 @@ typedef int CGSTransitionID;
 /// Gets the default connection for this process.
 CG_EXTERN CGSConnectionID CGSMainConnectionID(void);
 
-/// Creates a new connection to the window server.
+/// Creates a new connection to the Window Server.
 CG_EXTERN CGError CGSNewConnection(int unused, CGSConnectionID *outConnection);
 
 /// Releases a CGSConnection and all CGSWindows owned by it.
@@ -69,7 +69,7 @@ CG_EXTERN CGError CGSGetConnectionIDForPSN(CGSConnectionID cid, const ProcessSer
 /// hidden and then destroyed.
 CG_EXTERN bool CGSMenuBarExists(CGSConnectionID cid);
 
-/// Closes ALL connections to the window server by the current application.
+/// Closes ALL connections to the Window Server by the current application.
 ///
 /// The application is effectively turned into a Console-based application after the invocation of
 /// this method.
@@ -81,7 +81,7 @@ CG_EXTERN CGError CGSShutdownServerConnections(void);
 
 /// Retrieves the value associated with the given key for the given connection.
 ///
-/// This method is structured so processes can send values through the window server to other
+/// This method is structured so processes can send values through the Window Server to other
 /// processes - assuming they know each others connection IDs.  The recommended use case for this
 /// function appears to be keeping state around for application-level sub-connections.
 CG_EXTERN CGError CGSCopyConnectionProperty(CGSConnectionID cid, CGSConnectionID targetCID, CFStringRef key, CFTypeRef *outValue);
@@ -95,7 +95,7 @@ CG_EXTERN CGError CGSSetConnectionProperty(CGSConnectionID cid, CGSConnectionID 
 
 /// Disables updates on a connection
 ///
-/// Calls to disable updates nest much like `-beginUpdates`/`-endUpdates`.  The Window Server will
+/// Calls to disable updates nest much like `-beginUpdates`/`-endUpdates`.  the Window Server will
 /// forcibly reenable updates after 1 second if you fail to invoke `CGSReenableUpdate`.
 CG_EXTERN CGError CGSDisableUpdate(CGSConnectionID cid);
 
@@ -199,7 +199,7 @@ typedef void (*CGSConnectionDeathNotificationProc)(CGSConnectionID cid);
 CG_EXTERN CGError CGSRegisterForConnectionDeathNotification(CGSConnectionDeathNotificationProc proc);
 
 /// Removes a function that was registered to receive notifications for the destruction of the
-/// application's connection to the window server.
+/// application's connection to the Window Server.
 CG_EXTERN CGError CGSRemoveConnectionDeathNotification(CGSConnectionDeathNotificationProc proc);
 
 

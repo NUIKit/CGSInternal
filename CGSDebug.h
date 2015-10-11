@@ -1,5 +1,5 @@
 /*
- * Routines for debugging the window server and application drawing.
+ * Routines for debugging the Window Server and application drawing.
  *
  * Copyright (C) 2007-2008 Alacatia Labs
  * 
@@ -122,4 +122,4 @@ CG_EXTERN CGError CGSSetDebugOptions(int options);
 /// zero with the minimum FPS.
 CG_EXTERN CGError CGSGetPerformanceData(CGSConnectionID cid, CGFloat *outFPS, CGFloat *unk, CGFloat *unk2, CGFloat *unk3);
 
-#endif CGS_DEBUG_INTERNAL_H /* CGS_DEBUG_INTERNAL_H */
+#endif /* CGS_DEBUG_INTERNAL_H */

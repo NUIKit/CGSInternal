@@ -107,6 +107,9 @@ CG_EXTERN CGError CGSRevealCursor(CGSConnectionID cid);
 /// If you call this, I hate you.
 CG_EXTERN CGError CGSForceWaitCursorActive(CGSConnectionID cid, bool showWaitCursor);
 
+/// Unconditionally sets the location of the cursor on the screen to the given coordinates.
+CG_EXTERN CGError CGSWarpCursorPosition(CGSConnectionID cid, CGFloat x, CGFloat y);
+
 
 #pragma mark - Cursor Properties
 
@@ -152,5 +155,4 @@ CG_EXTERN CGError CGSGetSystemDefinedCursorDataSize(CGSConnectionID cid, CGSCurs
 /// Gets the data for a system-defined cursor.
 CG_EXTERN CGError CGSGetSystemDefinedCursorData(CGSConnectionID cid, CGSCursorID cursor, void *outData, int *outRowBytes, CGRect *outRect, CGPoint *outHotSpot, int *outDepth, int *outComponents, int *outBitsPerComponent);
 
-
-#endif CGS_CURSOR_INTERNAL_H /* CGS_CURSOR_INTERNAL_H */
+#endif /* CGS_CURSOR_INTERNAL_H */

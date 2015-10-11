@@ -123,5 +123,4 @@ CG_EXTERN CGDisplayErr CGSCancelDisplayConfiguration(CGDisplayConfigRef config);
 /// Queries the Window Server about the status of the query.
 CG_EXTERN CGError CGSDisplayStatusQuery(CGDirectDisplayID display, CGSDisplayQuery query);
 
-
-#endif CGS_DISPLAYS_INTERNAL_H /* CGS_DISPLAYS_INTERNAL_H */
+#endif /* CGS_DISPLAYS_INTERNAL_H */
