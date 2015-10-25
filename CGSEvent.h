@@ -175,11 +175,6 @@ typedef enum : unsigned int {
 	kCGXServerDisplayAcceleratorDeactivate = 1804,
 } CGSEventType;
 
-typedef struct {
-	NXEventData eventData;
-	SInt32 _padding[4];
-} CGSEventRecordData;
-
 typedef struct _CGSEventRecord {
 	CGSEventRecordVersion major; /*0x0*/
 	CGSEventRecordVersion minor; /*0x2*/
@@ -210,19 +205,21 @@ typedef struct _CGSEventRecord {
 		unsigned int targetID;
 		unsigned int flags;
 	} eventProcess;
-	CGSEventRecordData data;    /* type-dependent data: 40 bytes */
+	NXEventData eventData;
+	SInt32 _padding[4];
 	void *ioEventData;
-	/*
-	 unsigned short windowHeight;
-	 unsigned short mainDisplayHeight;
-	 unsigned short *unicodePayload;
-	 unsigned int eventOwner;
-	 unsigned char passedThrough;
-	 */
-	unsigned int _field15[4];
 	unsigned short _field16;
 	unsigned short _field17;
-	unsigned short *_field18;
+	struct _CGSEventAppendix {
+		unsigned short windowHeight;
+		unsigned short mainDisplayHeight;
+		unsigned short *unicodePayload;
+		unsigned int eventOwner;
+		unsigned char passedThrough;
+	} *appendix;
+	unsigned int _field18;
+	bool passedThrough;
+	CFDataRef data;
 } CGSEventRecord;
 
 /// Gets the event record for a given `CGEventRef`.
