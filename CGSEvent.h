@@ -128,6 +128,11 @@ typedef enum : unsigned int {
 	kCGSServerWindowWillTerminate = 1001,
 	kCGSServerWindowOrderDidChange = 1002,
 	kCGSServerWindowDidTerminate = 1003,
+	
+	kCGSWindowWasMovedByDockEvent = 1205,
+	kCGSWindowWasResizedByDockEvent = 1207,
+	kCGSWindowDidBecomeManagedByDockEvent = 1208,
+	
 	kCGSServerMenuBarCreated = 1300,
 	kCGSServerHidBackstopMenuBar = 1301,
 	kCGSServerShowBackstopMenuBar = 1302,
@@ -174,6 +179,31 @@ typedef enum : unsigned int {
 	kCGXServerDisplayAcceleratorOffline = 1803,
 	kCGXServerDisplayAcceleratorDeactivate = 1804,
 } CGSEventType;
+
+
+#pragma mark - System-Level Event Notification Registration
+
+
+typedef void (*CGSNotifyProcPtr)(CGSEventType type, void *data, unsigned int dataLength, void *userData);
+
+/// Registers a function to receive notifications for system-wide events.
+CG_EXTERN CGError CGSRegisterNotifyProc(CGSNotifyProcPtr proc, CGSEventType type, void *userData);
+
+/// Unregisters a function that was registered to receive notifications for system-wide events.
+CG_EXTERN CGError CGSRemoveNotifyProc(CGSNotifyProcPtr proc, CGSEventType type, void *userData);
+
+
+#pragma mark - Application-Level Event Notification Registration
+
+
+typedef void (*CGConnectionNotifyProc)(CGSEventType type, CGSNotificationData notificationData, size_t dataLength, CGSNotificationArg userParameter, CGSConnectionID);
+
+/// Registers a function to receive notifications for connection-level events.
+CG_EXTERN CGError CGSRegisterConnectionNotifyProc(CGSConnectionID cid, CGConnectionNotifyProc function, CGSEventType event, void *userData);
+
+/// Unregisters a function that was registered to receive notifications for connection-level events.
+CG_EXTERN CGError CGSRemoveConnectionNotifyProc(CGSConnectionID cid, CGConnectionNotifyProc function, CGSEventType event, void *userData);
+
 
 typedef struct _CGSEventRecord {
 	CGSEventRecordVersion major; /*0x0*/

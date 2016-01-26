@@ -105,78 +105,7 @@ CG_EXTERN CGError CGSDisableUpdate(CGSConnectionID cid);
 CG_EXTERN CGError CGSReenableUpdate(CGSConnectionID cid);
 
 
-#pragma mark - System-Level Notification Registration
-
-
-typedef enum {
-	kCGSNotificationDebugOptionsChanged = 200,
-
-	kCGSNotificationMouseMoved = 715,
-
-	kCGSNotificationTrackingRegionEntered = 718,
-	kCGSNotificationTrackingRegionExited = 719,
-
-	// 724 - keyboard preferences changed
-
-	// 729, 730 seem to be process deactivated / activated - but only for this process
-	// 731 seems to be this process hidden or shown
-
-	//	kCGSNotificationAppUnresponsive = 750,
-	//	kCGSNotificationAppResponsive = 751,
-
-	// 761 - hotkey disabled
-	// 762 - hotkey enabled (do these two fire twice?)
-
-	// 763 - hotkey begins editing
-	// 764 - hotkey ends editing
-
-	// 765, 766 seem to be about the hotkey state (all disabled, etc)
-
-	kCGSNotificationWorkspaceChanged = 1401,
-
-	kCGSNotificationTransitionEnded = 1700,
-} CGSNotificationType;
-
-typedef void (*CGSNotifyProcPtr)(CGSNotificationType type, void *data, unsigned int dataLength, void *userData);
-
-/// Registers a function to receive notifications for system-wide events.
-CG_EXTERN CGError CGSRegisterNotifyProc(CGSNotifyProcPtr proc, CGSNotificationType type, void *userData);
-
-/// Unregisters a function that was registered to receive notifications for system-wide events.
-CG_EXTERN CGError CGSRemoveNotifyProc(CGSNotifyProcPtr proc, CGSNotificationType type, void *userData);
-
-
-#pragma mark - Application-Level Notification Registration
-
-
-typedef enum {
-	kCGSScreenResolutionChangedEvent		= 100,
-	kCGSScreenDisplayParametersChangedEvent	= 101,
-	kCGSClientEnterFullscreen				= 106,
-	kCGSClientExitFullscreen				= 107,
-	kCGSScreenAcceleratorChangedEvent		= 121,
-	kCGSNotificationAppUnresponsive			= 750,
-	kCGSNotificationAppResponsive			= 751,
-	kCGSWorkspaceConfigurationDisabledEvent	= 761,
-	kCGSWorkspaceConfigurationEnabledEvent	= 762,
-	kCGSWindowDidBecomeUnoccludedEvent		= 912,
-	kCGSWindowDidBecomeOccludedEvent		= 913,
-	kCGSWindowWasMovedByDockEvent			= 1205,
-	kCGSWindowWasResizedByDockEvent			= 1207,
-	kCGSWindowDidBecomeManagedByDockEvent	= 1208,
-	kCGSWindowTileSpaceBeganLiveResize		= 1312,
-	kCGSWindowTileSpaceEndedLiveResize		= 1313,
-	kCGSWindowTileSpaceDidResize			= 1314,
-	kCGSWorkspaceChangedEvent				= 1401,
-} CGSConnectionNotifyEvent;
-
-typedef void (*CGConnectionNotifyProc)(CGSNotificationType type, CGSNotificationData notificationData, size_t dataLength, CGSNotificationArg userParameter, CGSConnectionID);
-
-/// Registers a function to receive notifications for connection-level events.
-CG_EXTERN CGError CGSRegisterConnectionNotifyProc(CGSConnectionID cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
-
-/// Unregisters a function that was registered to receive notifications for connection-level events.
-CG_EXTERN CGError CGSRemoveConnectionNotifyProc(CGSConnectionID cid, CGConnectionNotifyProc function, CGSConnectionNotifyEvent event, void *userData);
+#pragma mark - Connection Notifications
 
 
 typedef void (*CGSNewConnectionNotificationProc)(CGSConnectionID cid);
