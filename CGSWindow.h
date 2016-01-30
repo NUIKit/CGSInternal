@@ -58,6 +58,14 @@ typedef enum {
 	kCGSBackingBuffered,
 } CGSBackingType;
 
+typedef enum {
+	CGSWindowSaveWeightingDontReuse,
+	CGSWindowSaveWeightingTopLeft,
+	CGSWindowSaveWeightingTopRight,
+	CGSWindowSaveWeightingBottomLeft,
+	CGSWindowSaveWeightingBottomRight,
+	CGSWindowSaveWeightingClip,
+} CGSWindowSaveWeighting;
 typedef enum : int {
 	// Lo bits
 	
@@ -274,6 +282,12 @@ CG_EXTERN CGError CGSGetWindowAlpha(CGSConnectionID cid, CGWindowID wid, CGFloat
 /// Sets the window's alpha value.
 CG_EXTERN CGError CGSSetWindowAlpha(CGSConnectionID cid, CGWindowID wid, CGFloat alpha);
 
+/// Sets the shape of the window and describes how to redraw if the bounding
+/// boxes don't match.
+CG_EXTERN CGError CGSSetWindowShapeWithWeighting(CGSConnectionID cid, CGWindowID wid, CGFloat offsetX, CGFloat offsetY, CGSRegionRef shape, CGSWindowSaveWeighting weight);
+
+/// Sets the shape of the window.
+CG_EXTERN CGError CGSSetWindowShape(CGSConnectionID cid, CGWindowID wid, CGFloat offsetX, CGFloat offsetY, CGSRegionRef shape);
 
 /// Gets and sets a Boolean value indicating whether the window is opaque.
 CG_EXTERN CGError CGSGetWindowOpacity(CGSConnectionID cid, CGWindowID wid, bool *outIsOpaque);
