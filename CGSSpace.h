@@ -39,6 +39,12 @@ typedef enum {
 	KCGSAllVisibleSpacesMask = CGSSpaceVisible | kCGSAllSpacesMask,
 } CGSSpaceMask;
 
+typedef enum {
+	/// Each display manages a single contiguous space.
+	kCGSPackagesSpaceManagementModeNone = 0,
+	/// Each display manages a separate stack of spaces.
+	kCGSPackagesSpaceManagementModePerDesktop = 1,
+} CGSSpaceManagementMode;
 
 #pragma mark - Space Lifecycle
 
@@ -81,6 +87,15 @@ CG_EXTERN CGSRegionRef CGSSpaceCopyManagedShape(CGSConnectionID cid, CGSSpaceID 
 /// Gets the type of a space.
 CG_EXTERN CGSSpaceType CGSSpaceGetType(CGSConnectionID cid, CGSSpaceID sid);
 
+/// Gets the current space management mode.
+///
+/// This method reflects whether the “Displays have separate Spaces” option is 
+/// enabled in Mission Control system preference. You might use the return value
+/// to determine how to present your app when in fullscreen mode.
+CG_EXTERN CGSSpaceManagementMode CGSGetSpaceManagementMode(CGSConnectionID cid) AVAILABLE_MAC_OS_X_VERSION_10_9_AND_LATER;
+
+/// Sets the current space management mode.
+CG_EXTERN CGError CGSSetSpaceManagementMode(CGSConnectionID cid, CGSSpaceManagementMode mode) AVAILABLE_MAC_OS_X_VERSION_10_9_AND_LATER;
 
 #pragma mark - Global Space Properties
 
