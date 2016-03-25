@@ -3,7 +3,7 @@
 //  CGSInternal
 //
 //  Created by Robert Widmann on 9/14/13.
-//  Copyright (c) 2015 CodaFi. All rights reserved.
+//  Copyright (c) 2015-2016 CodaFi. All rights reserved.
 //  Released under the MIT license.
 //
 

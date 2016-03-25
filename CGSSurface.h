@@ -3,7 +3,7 @@
 //	CGSInternal
 //
 //  Created by Robert Widmann on 9/14/13.
-//  Copyright (c) 2015 CodaFi. All rights reserved.
+//  Copyright © 2015-2016 CodaFi. All rights reserved.
 //  Released under the MIT license.
 //
 
@@ -24,6 +24,10 @@ CG_EXTERN CGError CGSAddSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceI
 /// Removes a drawable surface from a window.
 CG_EXTERN CGError CGSRemoveSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID sid);
 
+/// Binds a CAContext to a surface.
+///
+/// Pass ctx the result of invoking -[CAContext contextId].
+CG_EXTERN CGError CGSBindSurface(CGSConnectionID cid, CGWindowID wid, CGSSurfaceID sid, int x, int y, unsigned int ctx);
 
 #pragma mark - Surface Properties
 
