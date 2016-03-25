@@ -23,7 +23,7 @@
 
 //
 //  Updated by Robert Widmann.
-//  Copyright © 2015 CodaFi. All rights reserved.
+//  Copyright © 2015-2016 CodaFi. All rights reserved.
 //  Released under the MIT license.
 //
 
@@ -40,6 +40,7 @@
 #include "CGSConnection.h"
 #include "CGSCursor.h"
 #include "CGSDebug.h"
+#include "CGSDevice.h"
 #include "CGSDisplays.h"
 #include "CGSEvent.h"
 #include "CGSHotKeys.h"
